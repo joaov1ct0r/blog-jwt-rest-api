@@ -1,7 +1,7 @@
 {
   "name": "blog-rest-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "REST API de um Blog, com rotas para cadastro e login de usuarios, criação, edição e exclusão de posts e comentarios.",
   "main": "index.js",
   "type": "module",
   "scripts": {

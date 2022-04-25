@@ -10,3 +10,13 @@ let dbConnection = new Sequelize({
     database: process.env.DB_DATABASE,
     port: process.env.DB_PORT
 });
+
+try {
+    await dbConnection.authenticate();
+
+    console.log('Conexão com DB estabelecida!');
+} catch (error) {
+    throw error;
+}
+
+export default dbConnection;

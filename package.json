@@ -7,7 +7,21 @@
   "scripts": {
     "start": "node src/index.js"
   },
-  "keywords": ["javascript", "nodejs", "blog", "rest api", "cors", "jwt", "jsonwebtoken", "bcrypt", "sequelize", "mysql"],
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "blog",
+    "rest api",
+    "cors",
+    "jwt",
+    "jsonwebtoken",
+    "bcrypt",
+    "sequelize",
+    "mysql"
+  ],
   "author": "github.com/joaov1ct0r",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "sequelize": "^6.17.0"
+  }
 }

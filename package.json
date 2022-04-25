@@ -22,6 +22,7 @@
   "author": "github.com/joaov1ct0r",
   "license": "ISC",
   "dependencies": {
+    "mysql2": "^2.3.3",
     "sequelize": "^6.17.0"
   }
 }

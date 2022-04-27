@@ -1,5 +1,7 @@
 import dbConnection from '../config/database.js';
 
+import User from './userModel.js';
+
 import { DataTypes } from 'sequelize';
 
 let Post = dbConnection.define('posts', {

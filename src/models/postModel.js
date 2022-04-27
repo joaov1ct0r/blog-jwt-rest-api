@@ -20,3 +20,8 @@ let Post = dbConnection.define('posts', {
         allowNull: false
     }
 });
+
+Post.belongsTo(User, {
+    constraints: true,
+    foreignKey: 'userId'
+});

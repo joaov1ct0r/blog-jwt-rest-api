@@ -29,3 +29,7 @@ Post.belongsTo(User, {
 User.hasMany(Post, {
     foreignKey: 'userId'
 });
+
+Post.sync();
+
+export default Post;

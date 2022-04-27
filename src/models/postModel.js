@@ -25,3 +25,7 @@ Post.belongsTo(User, {
     constraints: true,
     foreignKey: 'userId'
 });
+
+User.hasMany(Post, {
+    foreignKey: 'userId'
+});

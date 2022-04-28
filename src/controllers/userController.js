@@ -34,3 +34,5 @@ let handleNewUser = async (req, res) => {
         throw error;
     }
 };
+
+export { handleNewUser };

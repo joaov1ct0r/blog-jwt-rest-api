@@ -35,4 +35,10 @@ let handleNewUser = async (req, res) => {
     }
 };
 
+let handleUserLogin = async (req, res) => {
+    let { error } = validateUserData(req.body);
+
+    if (error) return res.status(400).json({ error });
+};
+
 export { handleNewUser };

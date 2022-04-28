@@ -69,6 +69,10 @@ let handleUserLogin = async (req, res) => {
 
         if (!token)
             return res.status(500).json({ error: 'Falha ao gerar token!' });
+
+        res.set('auth', token);
+
+        res.status(200).json({ message: 'Login realizado com sucesso!' });
     } catch (error) {
         throw error;
     }

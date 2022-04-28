@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 
-let validateNewUser = data => {
+let validateUserData = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100),
         password: Joi.string().required().min(8).max(250)
@@ -9,4 +9,4 @@ let validateNewUser = data => {
     return schema.validate(data);
 };
 
-export { validateNewUser };
+export { validateUserData };

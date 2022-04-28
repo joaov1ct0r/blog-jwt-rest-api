@@ -17,4 +17,18 @@ let handleNewUser = async (req, res) => {
 
     if (!registeredUser)
         return res.status(400).json({ error: 'Usuario já cadastrado!' });
+
+    try {
+        let newUser = await User.create({
+            email,
+            password: bcrypt.hashSync(password)
+        });
+
+        if (!newUser)
+            return res
+                .status(500)
+                .json({ error: 'Falha ao cadastrar novo usuario!' });
+    } catch (error) {
+        throw error;
+    }
 };

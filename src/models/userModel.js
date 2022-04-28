@@ -19,6 +19,10 @@ let User = dbConnection.define(
         password: {
             type: DataTypes.STRING(250),
             allowNull: false
+        },
+        admin: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
         }
     },
     {

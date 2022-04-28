@@ -4,6 +4,8 @@ import User from '../models/userModel.js';
 
 import bcrypt from 'bcryptjs';
 
+import jwt from 'jsonwebtoken';
+
 let handleNewUser = async (req, res) => {
     let { error } = validateUserData(req.body);
 

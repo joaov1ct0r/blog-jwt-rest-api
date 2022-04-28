@@ -78,4 +78,4 @@ let handleUserLogin = async (req, res) => {
     }
 };
 
-export { handleNewUser };
+export { handleNewUser, handleUserLogin };

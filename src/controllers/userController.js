@@ -2,6 +2,8 @@ import { validateUserData } from './validateUserData.js';
 
 import User from '../models/userModel.js';
 
+import Post from '../models/postModel.js';
+
 import bcrypt from 'bcryptjs';
 
 import jwt from 'jsonwebtoken';

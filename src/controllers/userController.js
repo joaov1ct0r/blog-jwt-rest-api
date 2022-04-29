@@ -146,4 +146,15 @@ let handleDeleteUser = async (req, res) => {
     }
 };
 
+let handleAllUsers = async (req, res) => {
+    try {
+        let users = await User.findAll({});
+
+        if (!users)
+            return res.status(500).json({ error: 'Falha ao obter dados!' });
+    } catch (error) {
+        throw error;
+    }
+};
+
 export { handleNewUser, handleUserLogin, handleEditUser, handleDeleteUser };

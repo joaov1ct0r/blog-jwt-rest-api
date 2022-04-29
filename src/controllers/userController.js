@@ -146,4 +146,4 @@ let handleDeleteUser = async (req, res) => {
     }
 };
 
-export { handleNewUser, handleUserLogin, handleEditUser };
+export { handleNewUser, handleUserLogin, handleEditUser, handleDeleteUser };

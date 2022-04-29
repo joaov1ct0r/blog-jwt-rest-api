@@ -135,6 +135,12 @@ let handleDeleteUser = async (req, res) => {
 
         if (!deletedUser)
             return res.status(500).json({ error: 'Falha ao deletar usuario!' });
+
+        let deletedPosts = await Post.destroy({
+            where: { userId: id }
+        });
+
+        res.status(200).json({ message: 'Usuario deletado com sucesso!' });
     } catch (error) {
         throw error;
     }

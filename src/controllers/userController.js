@@ -182,5 +182,6 @@ export {
     handleUserLogin,
     handleEditUser,
     handleDeleteUser,
-    handleAllUsers
+    handleAllUsers,
+    handleOneUser
 };

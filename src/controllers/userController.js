@@ -118,4 +118,15 @@ let handleEditUser = async (req, res) => {
     }
 };
 
+let handleDeleteUser = async (req, res) => {
+    let { id } = req.params;
+
+    let registeredUser = await User.findOne({
+        where: { email }
+    });
+
+    if (!registeredUser)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
+};
+
 export { handleNewUser, handleUserLogin, handleEditUser };

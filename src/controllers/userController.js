@@ -82,6 +82,17 @@ let handleEditUser = async (req, res) => {
     let { error } = validateUserData(req.body);
 
     if (error) return res.status(400).json({ error });
+
+    let { id } = req.params;
+
+    let { email, password } = req.body;
+
+    let registeredUser = await User.findOne({
+        where: { email }
+    });
+
+    if (!registeredUser)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
 };
 
 export { handleNewUser, handleUserLogin };

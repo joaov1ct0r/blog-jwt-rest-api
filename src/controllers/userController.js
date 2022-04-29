@@ -159,6 +159,17 @@ let handleAllUsers = async (req, res) => {
     }
 };
 
+let handleOneUser = async (req, res) => {
+    let { id } = req.params;
+
+    let registeredUser = await User.findOne({
+        where: { id }
+    });
+
+    if (!registeredUser)
+        return res.status(500).json({ error: 'Usuario não encontrado!' });
+};
+
 export {
     handleNewUser,
     handleUserLogin,

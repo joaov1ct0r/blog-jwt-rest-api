@@ -163,11 +163,18 @@ let handleOneUser = async (req, res) => {
     let { id } = req.params;
 
     let registeredUser = await User.findOne({
+        include: Post,
         where: { id }
     });
 
     if (!registeredUser)
         return res.status(500).json({ error: 'Usuario não encontrado!' });
+
+    try {
+        res.status(200).json({ registeredUser });
+    } catch (error) {
+        throw error;
+    }
 };
 
 export {

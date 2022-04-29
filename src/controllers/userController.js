@@ -116,4 +116,4 @@ let handleEditUser = async (req, res) => {
     }
 };
 
-export { handleNewUser, handleUserLogin };
+export { handleNewUser, handleUserLogin, handleEditUser };

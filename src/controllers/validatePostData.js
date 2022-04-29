@@ -8,3 +8,5 @@ let validatePostData = data => {
 
     return schema.validate(data);
 };
+
+export { validatePostData };

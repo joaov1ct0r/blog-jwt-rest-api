@@ -159,4 +159,10 @@ let handleAllUsers = async (req, res) => {
     }
 };
 
-export { handleNewUser, handleUserLogin, handleEditUser, handleDeleteUser };
+export {
+    handleNewUser,
+    handleUserLogin,
+    handleEditUser,
+    handleDeleteUser,
+    handleAllUsers
+};

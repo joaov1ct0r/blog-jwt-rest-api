@@ -93,6 +93,23 @@ let handleEditUser = async (req, res) => {
 
     if (!registeredUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    try {
+        let editedUser = await User.update(
+            {
+                email,
+                password: bcrypt.hashSync(password)
+            },
+            {
+                where: { id }
+            }
+        );
+
+        if (!editedUser)
+            return res.status(500).json({ error: 'Falha ao editar usuario!' });
+    } catch (error) {
+        throw error;
+    }
 };
 
 export { handleNewUser, handleUserLogin };

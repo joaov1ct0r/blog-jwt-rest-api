@@ -125,6 +125,13 @@ let handleDeleteUser = async (req, res) => {
 
     if (!error) return res.status(400).json({ error });
 
+    let { email } = req.body;
+
+    if (!email)
+        return res
+            .status(400)
+            .json({ error: 'Email não encontrado na requisição!' });
+
     let registeredUser = await User.findOne({
         where: { email }
     });

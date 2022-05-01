@@ -27,4 +27,4 @@ let validateUserDeleted = data => {
     return schema.validate(data);
 };
 
-export { validateUserData };
+export { validateUserData, validateUserEdit };

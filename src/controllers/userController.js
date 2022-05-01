@@ -85,7 +85,7 @@ let handleUserLogin = async (req, res) => {
 };
 
 let handleEditUser = async (req, res) => {
-    let { error } = validateUserData(req.body);
+    let { error } = validateUserEdit(req.body);
 
     if (error) return res.status(400).json({ error });
 

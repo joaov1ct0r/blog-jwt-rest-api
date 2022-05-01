@@ -19,4 +19,10 @@ let validateUserEdit = data => {
     return schema.validate(data);
 };
 
+let validateUserDeleted = data => {
+    let schema = Joi.object({
+        email: Joi.string().required().min(10).max(100)
+    });
+};
+
 export { validateUserData };

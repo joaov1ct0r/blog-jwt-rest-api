@@ -15,6 +15,8 @@ let validateUserEdit = data => {
         newemail: Joi.string().required().min(10).max(100),
         newpassword: Joi.string().required().min(8).max(250)
     });
+
+    return schema.validate(data);
 };
 
 export { validateUserData };

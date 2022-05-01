@@ -1,4 +1,8 @@
-import { validateUserData } from './validateUserData.js';
+import {
+    validateUserData,
+    validateUserEdit,
+    validateUserDeleted
+} from './validateUserData.js';
 
 import User from '../models/userModel.js';
 

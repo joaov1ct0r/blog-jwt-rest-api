@@ -11,6 +11,8 @@ import {
 
 import authController from '../middlewares/auth.js';
 
+import adminController from '../middlewares/admin.js';
+
 let userRouter = express.Router();
 
 userRouter.post('/register', handleNewUser);

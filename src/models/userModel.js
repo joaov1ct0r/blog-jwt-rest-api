@@ -22,7 +22,7 @@ let User = dbConnection.define(
         },
         admin: {
             type: DataTypes.BOOLEAN,
-            allowNull: false
+            defaultValue: false
         }
     },
     {

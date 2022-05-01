@@ -18,3 +18,5 @@ userRouter.post('/register', handleNewUser);
 userRouter.post('/login', handleUserLogin);
 
 userRouter.put('/edit/:id', authController, handleEditUser);
+
+userRouter.delete('/delete/:id', authController, handleDeleteUser);

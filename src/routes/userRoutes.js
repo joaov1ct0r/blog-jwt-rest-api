@@ -23,6 +23,6 @@ userRouter.delete('/delete/:id', authController, handleDeleteUser);
 
 userRouter.get('/users', authController, handleAllUsers);
 
-userRouter.get('/user/:id', authController, handleOneUser);
+userRouter.get('/:id', authController, handleOneUser);
 
 export default userRouter;

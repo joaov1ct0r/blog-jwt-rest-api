@@ -21,7 +21,12 @@ userRouter.post('/login', handleUserLogin);
 
 userRouter.put('/edit/:id', authController, adminController, handleEditUser);
 
-userRouter.delete('/delete/:id', authController, handleDeleteUser);
+userRouter.delete(
+    '/delete/:id',
+    authController,
+    adminController,
+    handleDeleteUser
+);
 
 userRouter.get('/users', authController, handleAllUsers);
 

@@ -8,3 +8,5 @@ import {
     handleAllUsers,
     handleOneUser
 } from '../controllers/userController.js';
+
+import authController from '../middlewares/authController.js';

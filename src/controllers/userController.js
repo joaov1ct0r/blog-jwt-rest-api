@@ -171,17 +171,22 @@ let handleAllUsers = async (req, res) => {
 };
 
 let handleOneUser = async (req, res) => {
-    let { id } = req.params;
+    let { email } = req.body;
 
-    let registeredUser = await User.findOne({
-        include: Post,
-        where: { id }
-    });
-
-    if (!registeredUser)
-        return res.status(500).json({ error: 'Usuario não encontrado!' });
+    if (!email)
+        return res
+            .status(400)
+            .json({ error: 'Email não encontrado na requisição!' });
 
     try {
+        let registeredUser = await User.findOne({
+            include: Post,
+            where: { email }
+        });
+
+        if (!registeredUser)
+            return res.status(500).json({ error: 'Usuario não encontrado!' });
+
         res.status(200).json({ registeredUser });
     } catch (error) {
         throw error;

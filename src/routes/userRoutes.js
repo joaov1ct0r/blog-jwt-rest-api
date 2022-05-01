@@ -10,3 +10,7 @@ import {
 } from '../controllers/userController.js';
 
 import authController from '../middlewares/authController.js';
+
+let userRouter = express.Router();
+
+userRouter.post('/register', handleNewUser);

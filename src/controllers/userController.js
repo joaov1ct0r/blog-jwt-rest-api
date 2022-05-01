@@ -89,9 +89,7 @@ let handleEditUser = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { id } = req.params;
-
-    let { email, password } = req.body;
+    let { email, newEmail, newPassword } = req.body;
 
     let registeredUser = await User.findOne({
         where: { email }
@@ -103,11 +101,11 @@ let handleEditUser = async (req, res) => {
     try {
         let editedUser = await User.update(
             {
-                email,
-                password: bcrypt.hashSync(password)
+                email: newEmail,
+                password: bcrypt.hashSync(newPassword)
             },
             {
-                where: { id }
+                where: { email }
             }
         );
 

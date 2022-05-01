@@ -14,3 +14,5 @@ import authController from '../middlewares/authController.js';
 let userRouter = express.Router();
 
 userRouter.post('/register', handleNewUser);
+
+userRouter.post('/login', handleUserLogin);

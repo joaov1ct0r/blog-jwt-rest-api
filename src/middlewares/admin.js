@@ -5,5 +5,15 @@ export default function (req, res, next) {
     where: { email: req.body.email }
   });
 
-  if(!registeredUser) return res.status(400).json({error: 'Usuario não encontrado'});
+  if(!registeredUser) return res.status(400).json({error: 'Usuario não encontrado!'});
+
+  try {
+    let adminUser = registeredUser.admin === true ? true : false;
+    
+    if(!adminUser) return res.status(401).json({error: 'Não autorizado!'})
+
+    next()
+  } catch (error) {
+    throw error;
+  }
 }

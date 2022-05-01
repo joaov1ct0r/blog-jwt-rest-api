@@ -10,6 +10,8 @@ export default function (req, res, next) {
 
         if (!verifiedToken)
             return res.status(400).json({ error: 'Falha na autenticação!' });
+
+        next();
     } catch (error) {
         throw error;
     }

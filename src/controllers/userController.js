@@ -51,19 +51,19 @@ let handleUserLogin = async (req, res) => {
 
     let { email, password } = req.body;
 
-    let registeredUser = await User.findOne({
+    let isUserRegistered = await User.findOne({
         where: { email }
     });
 
-    if (!registeredUser)
+    if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
-    let comparedPassword = bcrypt.compareSync(
+    let matchingPasswords = bcrypt.compareSync(
         password,
         registeredUser.password
     );
 
-    if (!comparedPassword)
+    if (!matchingPasswords)
         return res.status(400).json({ error: 'Falha na autenticação!' });
 
     try {

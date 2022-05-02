@@ -122,7 +122,7 @@ let handleEditUser = async (req, res) => {
 };
 
 let handleDeleteUser = async (req, res) => {
-    let { error } = validateUserDeleted(req.body);
+    let { error } = validateHandleDeleteUser(req.body);
 
     if (!error) return res.status(400).json({ error });
 

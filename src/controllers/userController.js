@@ -170,12 +170,11 @@ let handleAllUsers = async (req, res) => {
 };
 
 let handleOneUser = async (req, res) => {
-    let { email } = req.body;
+    let { error } = validateHandleOneUser(req.body);
 
-    if (!email)
-        return res
-            .status(400)
-            .json({ error: 'Email não encontrado na requisição!' });
+    if (error) return res.status(400).json({ error });
+
+    let { email } = req.body;
 
     try {
         let isUserRegistered = await User.findOne({

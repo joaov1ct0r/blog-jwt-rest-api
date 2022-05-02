@@ -48,5 +48,6 @@ export {
     validateHandleNewUser,
     validateHandleUserLogin,
     validateHandleUserEdit,
-    validateHandleDeleteUser
+    validateHandleDeleteUser,
+    validateHandleOneUser
 };

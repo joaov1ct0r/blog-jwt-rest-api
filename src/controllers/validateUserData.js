@@ -40,6 +40,8 @@ let validateHandleOneUser = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100)
     });
+
+    return schema.validate(data);
 };
 
 export {

@@ -2,7 +2,8 @@ import {
     validateHandleNewUser,
     validateHandleUserLogin,
     validateHandleUserEdit,
-    validateHandleDeleteUser
+    validateHandleDeleteUser,
+    validateHandleOneUser
 } from './validateUserData.js';
 
 import User from '../models/userModel.js';

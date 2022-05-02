@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 
-let validateUserData = data => {
+let validateHandleNewUser = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100),
         password: Joi.string().required().min(8).max(250)
@@ -9,7 +9,16 @@ let validateUserData = data => {
     return schema.validate(data);
 };
 
-let validateUserEdit = data => {
+let validateHandleUserLogin = data => {
+    let schema = Joi.object({
+        email: Joi.string().required().min(10).max(100),
+        password: Joi.string().required().min(8).max(250)
+    });
+
+    return schema.validate(data);
+};
+
+let validateHandleUserEdit = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100),
         newEmail: Joi.string().required().min(10).max(100),
@@ -19,7 +28,7 @@ let validateUserEdit = data => {
     return schema.validate(data);
 };
 
-let validateUserDeleted = data => {
+let validateHandleDeleteUser = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100)
     });
@@ -27,4 +36,9 @@ let validateUserDeleted = data => {
     return schema.validate(data);
 };
 
-export { validateUserData, validateUserEdit, validateUserDeleted };
+export {
+    validateHandleNewUser,
+    validateHandleUserLogin,
+    validateHandleUserEdit,
+    validateHandleDeleteUser
+};

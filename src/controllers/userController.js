@@ -92,11 +92,11 @@ let handleEditUser = async (req, res) => {
 
     let { email, newEmail, newPassword } = req.body;
 
-    let registeredUser = await User.findOne({
+    let isUserRegistered = await User.findOne({
         where: { email }
     });
 
-    if (!registeredUser)
+    if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
     try {

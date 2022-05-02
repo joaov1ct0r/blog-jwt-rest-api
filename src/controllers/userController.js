@@ -14,7 +14,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 let handleNewUser = async (req, res) => {
-    let { error } = validateUserData(req.body);
+    let { error } = validateHandleNewUser(req.body);
 
     if (error) return res.status(400).json({ error });
 

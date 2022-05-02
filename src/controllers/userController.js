@@ -182,15 +182,15 @@ let handleOneUser = async (req, res) => {
             .json({ error: 'Email não encontrado na requisição!' });
 
     try {
-        let registeredUser = await User.findOne({
+        let isUserRegistered = await User.findOne({
             include: Post,
             where: { email }
         });
 
-        if (!registeredUser)
+        if (!isUserRegistered)
             return res.status(500).json({ error: 'Usuario não encontrado!' });
 
-        res.status(200).json({ registeredUser });
+        res.status(200).json({ isUserRegistered });
     } catch (error) {
         throw error;
     }

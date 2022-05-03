@@ -10,4 +10,13 @@ let validateHandleNewPost = data => {
     return schema.validate(data);
 };
 
+let validateHandleEditPost = data => {
+    let schema = Joi.object({
+        email: Joi.string().required().min(10).max(100),
+        title: Joi.string().required().min(3).max(100),
+        description: Joi.string().required().min(5).max(250),
+        id: Joi.string().required().min(1).max(10)
+    });
+};
+
 export { validateHandleNewPost };

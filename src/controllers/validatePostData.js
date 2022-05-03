@@ -1,7 +1,8 @@
 import Joi from '@hapi/joi';
 
-let validatePostData = data => {
+let validateHandleNewPost = data => {
     let schema = Joi.object({
+        email: Joi.string().required().min(10).max(100),
         title: Joi.string().required().min(3).max(100),
         description: Joi.string().required().min(5).max(250)
     });
@@ -9,4 +10,4 @@ let validatePostData = data => {
     return schema.validate(data);
 };
 
-export { validatePostData };
+export { validateHandleNewPost };

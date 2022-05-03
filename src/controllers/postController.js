@@ -131,4 +131,10 @@ let handleAllPosts = async (req, res) => {
     }
 };
 
+let handleOnePost = async (req, res) => {
+    let { error } = validateHandleOnePost(req.body);
+
+    if (error) return res.status(400).json({ error });
+};
+
 export { handleNewPost, handleEditPost, handleDeletePost, handleAllPosts };

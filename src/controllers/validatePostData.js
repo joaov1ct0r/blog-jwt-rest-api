@@ -26,6 +26,12 @@ let validateHandleDeletePost = data => {
         email: Joi.string().required().min(10).max(100),
         id: Joi.string().required().min(1).max(10)
     });
+
+    return schema.validate(data);
 };
 
-export { validateHandleNewPost, validateHandleEditPost };
+export {
+    validateHandleNewPost,
+    validateHandleEditPost,
+    validateHandleDeletePost
+};

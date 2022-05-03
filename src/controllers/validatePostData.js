@@ -34,10 +34,13 @@ let validateHandleOnePost = data => {
     let schema = Joi.object({
         id: Joi.string().required().min(1).max(10)
     });
+
+    return schema.validate(data);
 };
 
 export {
     validateHandleNewPost,
     validateHandleEditPost,
-    validateHandleDeletePost
+    validateHandleDeletePost,
+    validateHandleOnePost
 };

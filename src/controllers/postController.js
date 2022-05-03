@@ -51,6 +51,13 @@ let handleEditPost = async (req, res) => {
 
     if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    let isPostRegistered = await Post.findOne({
+        where: { id }
+    });
+
+    if (!isPostRegistered)
+        return res.status(400).json({ error: 'Post não encontrado!' });
 };
 
 export { handleNewPost };

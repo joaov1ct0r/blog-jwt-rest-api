@@ -88,6 +88,8 @@ let handleDeletePost = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
+    let { email, id } = req.body;
+
     let isUserRegistered = await User.findOne({
         where: { email }
     });

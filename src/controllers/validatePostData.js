@@ -17,6 +17,8 @@ let validateHandleEditPost = data => {
         description: Joi.string().required().min(5).max(250),
         id: Joi.string().required().min(1).max(10)
     });
+
+    return schema.validate(data);
 };
 
-export { validateHandleNewPost };
+export { validateHandleNewPost, validateHandleEditPost };

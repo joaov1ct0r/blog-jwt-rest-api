@@ -40,4 +40,10 @@ let handleNewPost = async (req, res) => {
     }
 };
 
+let handleEditPost = async (req, res) => {
+    let { error } = validateHandleEditPost(req.body);
+
+    if (error) return res.status(400).json({ error });
+};
+
 export { handleNewPost };

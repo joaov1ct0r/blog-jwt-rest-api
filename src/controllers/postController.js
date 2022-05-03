@@ -115,4 +115,4 @@ let handleDeletePost = async (req, res) => {
     }
 };
 
-export { handleNewPost, handleEditPost };
+export { handleNewPost, handleEditPost, handleDeletePost };

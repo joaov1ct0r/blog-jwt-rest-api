@@ -25,7 +25,7 @@ let handleNewPost = async (req, res) => {
 
     try {
         let newPost = await Post.create({
-            author: email,
+            author: isUserRegistered.email,
             title,
             description,
             userId: isUserRegistered.id

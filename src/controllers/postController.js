@@ -58,6 +58,27 @@ let handleEditPost = async (req, res) => {
 
     if (!isPostRegistered)
         return res.status(400).json({ error: 'Post não encontrado!' });
+
+    try {
+        let editedPost = await Post.update(
+            {
+                author: isUserRegistered.email,
+                title,
+                description,
+                userId: isUserRegistered.id
+            },
+            {
+                where: { id }
+            }
+        );
+
+        if (!editedPost)
+            return res.status(500).json({ error: 'Falha ao editar Post' });
+
+        res.status(200).json({ editedPost });
+    } catch (error) {
+        throw error;
+    }
 };
 
 export { handleNewPost };

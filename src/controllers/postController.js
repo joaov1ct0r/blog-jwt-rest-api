@@ -36,3 +36,5 @@ let handleNewPost = async (req, res) => {
         throw error;
     }
 };
+
+export { handleNewPost };

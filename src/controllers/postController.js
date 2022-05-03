@@ -152,4 +152,10 @@ let handleOnePost = async (req, res) => {
     }
 };
 
-export { handleNewPost, handleEditPost, handleDeletePost, handleAllPosts };
+export {
+    handleNewPost,
+    handleEditPost,
+    handleDeletePost,
+    handleAllPosts,
+    handleOnePost
+};

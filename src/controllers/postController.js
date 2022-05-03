@@ -4,7 +4,8 @@ import Post from '../models/postModel.js';
 
 import {
     validateHandleNewPost,
-    validateHandleEditPost
+    validateHandleEditPost,
+    validateHandleDeletePost
 } from './validatePostData.js';
 
 let handleNewPost = async (req, res) => {

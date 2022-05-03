@@ -82,4 +82,10 @@ let handleEditPost = async (req, res) => {
     }
 };
 
+let handleDeletePost = async (req, res) => {
+    let { error } = validateHandleDeletePost(req.body);
+
+    if (error) return res.status(400).json({ error });
+};
+
 export { handleNewPost };

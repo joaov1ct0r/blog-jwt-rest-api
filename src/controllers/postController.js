@@ -8,4 +8,13 @@ let handleNewPost = async (req, res) => {
     let { error } = validateHandleNewPost(req.body);
 
     if (error) return res.status(400).json({ error });
+
+    let { email, title, description } = req.body;
+
+    let isUserRegistered = await User.findOne({
+        where: { email }
+    });
+
+    if (!isUserRegistered)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
 };

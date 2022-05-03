@@ -128,4 +128,4 @@ let handleAllPosts = async (req, res) => {
     }
 };
 
-export { handleNewPost, handleEditPost, handleDeletePost };
+export { handleNewPost, handleEditPost, handleDeletePost, handleAllPosts };

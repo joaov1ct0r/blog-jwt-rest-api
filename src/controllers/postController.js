@@ -17,4 +17,22 @@ let handleNewPost = async (req, res) => {
 
     if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    try {
+        let newPost = await Post.create({
+            author: email,
+            title,
+            description,
+            userId: isUserRegistered.id
+        });
+
+        if (!newPost)
+            return res
+                .status(500)
+                .json({ error: 'Falha ao registrar novo Post' });
+
+        res.status(200).json({ newPost });
+    } catch (error) {
+        throw error;
+    }
 };

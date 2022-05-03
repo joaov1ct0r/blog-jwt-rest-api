@@ -115,4 +115,17 @@ let handleDeletePost = async (req, res) => {
     }
 };
 
+let handleAllPosts = async (req, res) => {
+    try {
+        let users = await User.findAll({});
+
+        if (!users)
+            return res.status(500).json({ error: 'Falha ao obter dados!' });
+
+        res.status(200).json({ users });
+    } catch (error) {
+        throw error;
+    }
+};
+
 export { handleNewPost, handleEditPost, handleDeletePost };

@@ -11,6 +11,10 @@ let Post = dbConnection.define('posts', {
         primaryKey: true,
         unique: true
     },
+    author: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
     title: {
         type: DataTypes.STRING(100),
         allowNull: false

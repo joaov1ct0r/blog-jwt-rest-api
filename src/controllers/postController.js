@@ -135,6 +135,21 @@ let handleOnePost = async (req, res) => {
     let { error } = validateHandleOnePost(req.body);
 
     if (error) return res.status(400).json({ error });
+
+    let { id } = req.body;
+
+    try {
+        let post = await Post.findOne({
+            where: { id }
+        });
+
+        if (!post)
+            return res.status(400).json({ error: 'Post não encontrado!' });
+
+        res.status(200).json({ post });
+    } catch (error) {
+        throw error;
+    }
 };
 
 export { handleNewPost, handleEditPost, handleDeletePost, handleAllPosts };

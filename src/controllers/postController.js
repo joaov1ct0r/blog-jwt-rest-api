@@ -2,7 +2,10 @@ import User from '../models/userModel.js';
 
 import Post from '../models/postModel.js';
 
-import { validateHandleNewPost } from './validatePostData.js';
+import {
+    validateHandleNewPost,
+    validateHandleEditPost
+} from './validatePostData.js';
 
 let handleNewPost = async (req, res) => {
     let { error } = validateHandleNewPost(req.body);

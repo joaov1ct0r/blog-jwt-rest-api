@@ -25,6 +25,14 @@ let handleNewPost = async (req, res) => {
     if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
+    let matchingPasswords = bcrypt.compareSync(
+        password,
+        isUserRegistered.password
+    );
+
+    if (!matchingPasswords)
+        return res.status(401).json({ error: 'Não autorizado!' });
+
     try {
         let newPost = await Post.create({
             author: isUserRegistered.email,

@@ -124,7 +124,7 @@ let handleDeletePost = async (req, res) => {
 
     if (!matchingPasswords)
         return res.status(401).json({ error: 'Não autorizado!' });
-    else if (isUserRegistered.admin === true) {
+    else if (isUserRegistered.admin) {
         let isPostRegistered = await Post.findOne({
             where: { id }
         });

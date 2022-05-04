@@ -163,7 +163,7 @@ let handleDeleteUser = async (req, res) => {
                     .json({ error: 'Falha ao deletar usuario!' });
 
             let deletedPosts = await Post.destroy({
-                where: { userId: registeredUser.id }
+                where: { userId: isUserRegistered.id }
             });
 
             return res
@@ -183,7 +183,7 @@ let handleDeleteUser = async (req, res) => {
             return res.status(500).json({ error: 'Falha ao deletar usuario!' });
 
         let deletedPosts = await Post.destroy({
-            where: { userId: registeredUser.id }
+            where: { userId: isUserRegistered.id }
         });
 
         res.status(200).json({ message: 'Usuario deletado com sucesso!' });

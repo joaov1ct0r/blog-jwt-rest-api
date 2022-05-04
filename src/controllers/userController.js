@@ -70,7 +70,7 @@ let handleUserLogin = async (req, res) => {
     try {
         let token = jwt.sign(
             {
-                id: registeredUser.id
+                id: isUserRegistered.id
             },
             process.env.JWT_TOKEN_SECRET
         );

@@ -16,7 +16,7 @@ let handleNewPost = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, title, description } = req.body;
+    let { email, password, title, description } = req.body;
 
     let isUserRegistered = await User.findOne({
         where: { email }

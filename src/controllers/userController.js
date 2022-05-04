@@ -39,7 +39,7 @@ let handleNewUser = async (req, res) => {
                 .status(500)
                 .json({ error: 'Falha ao cadastrar novo usuario!' });
 
-        res.status(200).json({ message: 'Usuario cadastrado com sucesso!' });
+        res.status(200).json({ newUser });
     } catch (error) {
         throw error;
     }

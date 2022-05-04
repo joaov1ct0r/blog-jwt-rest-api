@@ -61,7 +61,7 @@ let handleUserLogin = async (req, res) => {
 
     let matchingPasswords = bcrypt.compareSync(
         password,
-        registeredUser.password
+        isUserRegistered.password
     );
 
     if (!matchingPasswords)

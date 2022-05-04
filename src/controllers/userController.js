@@ -144,6 +144,36 @@ let handleDeleteUser = async (req, res) => {
     if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
+    let matchingPasswords = bcrypt.compareSync(
+        password,
+        isUserRegistered.password
+    );
+
+    if (!matchingPasswords)
+        return res.status(401).json({ error: 'Não autorizado!' });
+    else if (isUserRegistered.admin) {
+        try {
+            let deletedUser = await User.destroy({
+                where: { email }
+            });
+
+            if (!deletedUser)
+                return res
+                    .status(500)
+                    .json({ error: 'Falha ao deletar usuario!' });
+
+            let deletedPosts = await Post.destroy({
+                where: { userId: registeredUser.id }
+            });
+
+            return res
+                .status(200)
+                .json({ message: 'Usuario deletado com sucesso!' });
+        } catch (error) {
+            throw error;
+        }
+    }
+
     try {
         let deletedUser = await User.destroy({
             where: { email }

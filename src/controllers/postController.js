@@ -170,14 +170,14 @@ let handleDeletePost = async (req, res) => {
 
 let handleAllPosts = async (req, res) => {
     try {
-        let users = await User.findAll({
+        let posts = await Post.findAll({
             include: User
         });
 
-        if (!users)
+        if (!posts)
             return res.status(500).json({ error: 'Falha ao obter dados!' });
 
-        res.status(200).json({ users });
+        res.status(200).json({ posts });
     } catch (error) {
         throw error;
     }

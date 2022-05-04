@@ -91,7 +91,7 @@ let handleEditUser = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, newEmail, newPassword } = req.body;
+    let { email, password, newEmail, newPassword } = req.body;
 
     let isUserRegistered = await User.findOne({
         where: { email }

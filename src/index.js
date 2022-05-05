@@ -9,3 +9,5 @@ import postRouter from './routes/postRoutes.js';
 import userRouter from './routes/userRoutes.js';
 
 let app = express();
+
+app.use(cors());

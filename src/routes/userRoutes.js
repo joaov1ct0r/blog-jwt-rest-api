@@ -25,6 +25,6 @@ userRouter.delete('/delete', authController, adminController, handleDeleteUser);
 
 userRouter.get('/users', authController, handleAllUsers);
 
-userRouter.get('/:id', authController, handleOneUser);
+userRouter.get('/user', authController, handleOneUser);
 
 export default userRouter;

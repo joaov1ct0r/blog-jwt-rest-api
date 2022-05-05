@@ -11,3 +11,5 @@ import userRouter from './routes/userRoutes.js';
 let app = express();
 
 app.use(cors());
+
+app.use(express.json());

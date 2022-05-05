@@ -19,3 +19,5 @@ postRouter.put('/edit', authController, handleEditPost);
 postRouter.delete('/delete', authController, handleDeletePost);
 
 postRouter.get('/posts', authController, handleAllPosts);
+
+postRouter.get('/post', authController, handleOnePost);

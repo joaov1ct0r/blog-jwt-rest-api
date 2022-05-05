@@ -15,3 +15,5 @@ let postRouter = express.Router();
 postRouter.post('/register', authController, handleNewPost);
 
 postRouter.put('/edit', authController, handleEditPost);
+
+postRouter.delete('/delete', authController, handleDeletePost);

@@ -7,3 +7,5 @@ import {
     handleAllPosts,
     handleOnePost
 } from '../controllers/postController.js';
+
+import authController from '../middlewares/auth.js';

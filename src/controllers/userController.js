@@ -80,7 +80,7 @@ let handleUserLogin = async (req, res) => {
 
         res.header('Authorization', 'Bearer ' + token);
 
-        res.status(200).json({ message: 'Login realizado com sucesso!' });
+        res.redirect('/api/post/posts');
     } catch (error) {
         throw error;
     }

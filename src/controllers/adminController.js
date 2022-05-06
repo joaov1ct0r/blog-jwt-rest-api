@@ -66,6 +66,15 @@ let handleAdminDeleteUser = async (req, res) => {
     let { error } = validateHandleAdminDeleteUser(req.body);
 
     if (error) return res.status(400).json({ error });
+
+    let { email, password, userEmail } = req.body;
+
+    let isAdminRegistered = await User.findOne({
+        where: { email }
+    });
+
+    if (!isAdminRegistered)
+        return res.status(400).json({ error: 'Falha na autenticação!' });
 };
 
 export { handleAdminEditUser };

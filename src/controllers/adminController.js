@@ -75,6 +75,14 @@ let handleAdminDeleteUser = async (req, res) => {
 
     if (!isAdminRegistered)
         return res.status(400).json({ error: 'Falha na autenticação!' });
+
+    let matchingPasswords = await bcrypt.hashSync(
+        password,
+        isAdminRegistered.password
+    );
+
+    if (!matchingPasswords)
+        return res.status(401).json({ error: 'Não autorizado!' });
 };
 
 export { handleAdminEditUser };

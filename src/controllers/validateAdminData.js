@@ -27,6 +27,12 @@ let validateAdminDeletePost = data => {
         password: Joi.string().required().min(8).max(250),
         postId: Joi.string().required().min(1)
     });
+
+    return schema.validate(data);
 };
 
-export { validateAdminEditUser, validateAdminDeleteUser };
+export {
+    validateAdminEditUser,
+    validateAdminDeleteUser,
+    validateAdminDeletePost
+};

@@ -124,28 +124,6 @@ let handleDeletePost = async (req, res) => {
 
     if (!matchingPasswords)
         return res.status(401).json({ error: 'Não autorizado!' });
-    else if (isUserRegistered.admin) {
-        let isPostRegistered = await Post.findOne({
-            where: { id }
-        });
-
-        if (!isPostRegistered)
-            return res.status(400).json({ error: 'Post não encontrado!' });
-        try {
-            let deletedPost = await Post.destroy({
-                where: { id }
-            });
-
-            if (!deletedPost)
-                return res.status(500).json({ error: 'Falha ao deletar Post' });
-
-            return res
-                .status(200)
-                .json({ message: 'Post deletado com sucesso!' });
-        } catch (error) {
-            throw error;
-        }
-    }
 
     let isPostRegistered = await Post.findOne({
         where: { id }

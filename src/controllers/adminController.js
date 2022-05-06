@@ -109,4 +109,4 @@ let handleAdminDeleteUser = async (req, res) => {
     }
 };
 
-export { handleAdminEditUser };
+export { handleAdminEditUser, handleAdminDeleteUser };

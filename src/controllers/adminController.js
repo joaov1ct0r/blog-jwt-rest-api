@@ -83,6 +83,17 @@ let handleAdminDeleteUser = async (req, res) => {
 
     if (!matchingPasswords)
         return res.status(401).json({ error: 'Não autorizado!' });
+
+    try {
+        let deletedUser = await User.destroy({
+            where: userEmail
+        });
+
+        if (!deletedUser)
+            return res.status(500).json({ error: 'Falha ao deletar usuario!' });
+    } catch (error) {
+        throw error;
+    }
 };
 
 export { handleAdminEditUser };

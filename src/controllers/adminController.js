@@ -39,4 +39,25 @@ let handleAdminEditUser = async (req, res) => {
 
     if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    try {
+        let editedUser = await User.update(
+            {
+                email: userNewEmail,
+                password: bcrypt.hashSync(userNewPassword)
+            },
+            {
+                where: { userEmail }
+            }
+        );
+
+        if (!editedUser)
+            return res
+                .status(500)
+                .json({ error: 'Falha ao atualizar usuario!' });
+
+        res.status(200).json({ message: 'Usuario editado com sucesso!' });
+    } catch (error) {
+        throw error;
+    }
 };

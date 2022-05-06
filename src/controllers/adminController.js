@@ -61,3 +61,5 @@ let handleAdminEditUser = async (req, res) => {
         throw error;
     }
 };
+
+export { handleAdminEditUser };

@@ -14,4 +14,13 @@ let handleAdminEditUser = async (req, res) => {
     let { error } = validateHandleAdminEditUser(req.body);
 
     if (error) return res.status(400).json({ error });
+
+    let { email, password, userEmail, userPassword } = req.body;
+
+    let isAdminRegistered = await User.findOne({
+        where: { email }
+    });
+
+    if (!isAdminRegistered)
+        return res.status(400).json({ error: 'Falha na autenticação!' });
 };

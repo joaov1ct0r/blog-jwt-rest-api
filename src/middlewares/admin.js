@@ -16,7 +16,7 @@ export default async function (req, res, next) {
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
     try {
-        let isUserAdmin = isUserRegistered.admin === true ? true : false;
+        let isUserAdmin = isUserRegistered.admin == true ? true : false;
 
         if (!isUserAdmin)
             return res.status(401).json({ error: 'Não autorizado!' });

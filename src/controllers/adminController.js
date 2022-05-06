@@ -38,4 +38,11 @@ let handleAdminEditUser = async (req, res) => {
 
     if (!matchingPasswords)
         return res.status(401).json({ error: 'Não autorizado!' });
+
+    let isUserRegistered = await User.findOne({
+        where: { email: userEmail }
+    });
+
+    if (!isUserRegistered)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
 };

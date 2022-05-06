@@ -23,4 +23,12 @@ let handleAdminEditUser = async (req, res) => {
 
     if (!isAdminRegistered)
         return res.status(400).json({ error: 'Falha na autenticação!' });
+
+    let matchingPasswords = bcrypt.compareSync(
+        password,
+        isAdminRegistered.password
+    );
+
+    if (!matchingPasswords)
+        return res.status(401).json({ error: 'Não autorizado!' });
 };

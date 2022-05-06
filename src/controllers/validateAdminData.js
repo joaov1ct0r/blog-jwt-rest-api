@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 
-let validateAdminEditUser = data => {
+let validateHandleAdminEditUser = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100),
         password: Joi.string().required().min(8).max(250),
@@ -11,7 +11,7 @@ let validateAdminEditUser = data => {
     return schema.validate(data);
 };
 
-let validateAdminDeleteUser = data => {
+let validateHandleAdminDeleteUser = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100),
         password: Joi.string().required().min(8).max(250),
@@ -21,7 +21,7 @@ let validateAdminDeleteUser = data => {
     return schema.validate(data);
 };
 
-let validateAdminDeletePost = data => {
+let validateHandleAdminDeletePost = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100),
         password: Joi.string().required().min(8).max(250),
@@ -32,7 +32,7 @@ let validateAdminDeletePost = data => {
 };
 
 export {
-    validateAdminEditUser,
-    validateAdminDeleteUser,
-    validateAdminDeletePost
+    validateHandleAdminEditUser,
+    validateHandleAdminDeleteUser,
+    validateHandleAdminDeletePost
 };

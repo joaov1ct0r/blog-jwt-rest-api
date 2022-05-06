@@ -62,4 +62,10 @@ let handleAdminEditUser = async (req, res) => {
     }
 };
 
+let handleAdminDeleteUser = async (req, res) => {
+    let { error } = validateHandleAdminDeleteUser(req.body);
+
+    if (error) return res.status(400).json({ error });
+};
+
 export { handleAdminEditUser };

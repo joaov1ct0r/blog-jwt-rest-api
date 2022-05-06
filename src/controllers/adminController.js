@@ -15,7 +15,14 @@ let handleAdminEditUser = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, password, userEmail, userPassword } = req.body;
+    let {
+        email,
+        password,
+        userEmail,
+        userPassword,
+        userNewEmail,
+        userNewPassword
+    } = req.body;
 
     let isAdminRegistered = await User.findOne({
         where: { email }

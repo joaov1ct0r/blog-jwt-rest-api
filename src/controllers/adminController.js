@@ -93,11 +93,17 @@ let handleAdminDeleteUser = async (req, res) => {
 
     try {
         let deletedUser = await User.destroy({
-            where: userEmail
+            where: { email: userEmail }
         });
 
         if (!deletedUser)
             return res.status(500).json({ error: 'Falha ao deletar usuario!' });
+
+        let deletedPosts = await Post.destroy({
+            where: { userId: isUserRegistered.id }
+        });
+
+        res.status(200).json({ message: 'Usuario deletado com sucesso!' });
     } catch (error) {
         throw error;
     }

@@ -7,4 +7,8 @@ let validateAdminEditUser = data => {
         userEmail: Joi.string().required().min(10).max(100),
         userPassword: Joi.string().required().min(8).max(250)
     });
+
+    return schema.validate(data);
 };
+
+export { validateAdminEditUser };

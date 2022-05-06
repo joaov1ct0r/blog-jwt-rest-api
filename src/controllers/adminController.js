@@ -9,3 +9,9 @@ import {
     validateHandleAdminDeleteUser,
     validateHandleAdminDeletePost
 } from '../controllers/validateAdminData.js';
+
+let handleAdminEditUser = async (req, res) => {
+    let { error } = validateHandleAdminEditUser(req.body);
+
+    if (error) return res.status(400).json({ error });
+};

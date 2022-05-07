@@ -16,7 +16,7 @@ let handleNewPost = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, password, title, description } = req.body;
+    let { email, password, title, description, content } = req.body;
 
     let isUserRegistered = await User.findOne({
         where: { email }
@@ -38,6 +38,7 @@ let handleNewPost = async (req, res) => {
             author: isUserRegistered.email,
             title,
             description,
+            content,
             userId: isUserRegistered.id
         });
 
@@ -57,7 +58,7 @@ let handleEditPost = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, password, title, description, id } = req.body;
+    let { email, password, title, description, content, id } = req.body;
 
     let isUserRegistered = await User.findOne({
         where: { email }
@@ -87,6 +88,7 @@ let handleEditPost = async (req, res) => {
                 author: isUserRegistered.email,
                 title,
                 description,
+                content,
                 userId: isUserRegistered.id
             },
             {

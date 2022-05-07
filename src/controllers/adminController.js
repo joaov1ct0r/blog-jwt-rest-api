@@ -122,6 +122,14 @@ let handleAdminDeletePost = async (req, res) => {
 
     if (!isAdminRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    let matchingPasswords = bcrypt.compareSync(
+        password,
+        isAdminRegistered.password
+    );
+
+    if (!matchingPasswords)
+        return res.status(401).json({ error: 'Não autorizado!' });
 };
 
 export { handleAdminEditUser, handleAdminDeleteUser };

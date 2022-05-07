@@ -5,7 +5,8 @@ let validateHandleNewPost = data => {
         email: Joi.string().required().min(10).max(100),
         password: Joi.string().required().min(8).max(250),
         title: Joi.string().required().min(3).max(100),
-        description: Joi.string().required().min(5).max(250)
+        description: Joi.string().required().min(5).max(250),
+        content: Joi.string().required().min(10).max(250)
     });
 
     return schema.validate(data);
@@ -17,6 +18,7 @@ let validateHandleEditPost = data => {
         password: Joi.string().required().min(8).max(250),
         title: Joi.string().required().min(3).max(100),
         description: Joi.string().required().min(5).max(250),
+        content: Joi.string().required().min(10).max(250),
         id: Joi.string().required().min(1).max(10)
     });
 

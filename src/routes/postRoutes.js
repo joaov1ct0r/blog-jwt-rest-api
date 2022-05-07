@@ -8,18 +8,18 @@ import {
     handleOnePost
 } from '../controllers/postController.js';
 
-import authController from '../middlewares/auth.js';
+import auth from '../middlewares/auth.js';
 
 let postRouter = express.Router();
 
-postRouter.post('/register', authController, handleNewPost);
+postRouter.post('/register', auth, handleNewPost);
 
-postRouter.put('/edit', authController, handleEditPost);
+postRouter.put('/edit', auth, handleEditPost);
 
-postRouter.delete('/delete', authController, handleDeletePost);
+postRouter.delete('/delete', auth, handleDeletePost);
 
-postRouter.get('/posts', authController, handleAllPosts);
+postRouter.get('/posts', auth, handleAllPosts);
 
-postRouter.get('/post', authController, handleOnePost);
+postRouter.get('/post', auth, handleOnePost);
 
 export default postRouter;

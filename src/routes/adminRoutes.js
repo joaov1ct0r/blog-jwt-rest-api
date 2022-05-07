@@ -7,3 +7,7 @@ import {
 } from '../controllers/adminController.js';
 
 import admin from '../middlewares/admin.js';
+
+let adminRouter = express.Router();
+
+adminRouter.post('/user/edit', admin, handleAdminEditUser);

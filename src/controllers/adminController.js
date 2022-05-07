@@ -137,6 +137,19 @@ let handleAdminDeletePost = async (req, res) => {
 
     if (!isPostRegistered)
         return res.status(400).json({ error: 'Post não encontrado!' });
+
+    try {
+        let deletedPost = await Post.destroy({
+            where: { id }
+        });
+
+        if (!deletedPost)
+            return res.status(500).json({ error: 'Falha ao deletar post!' });
+
+        res.status(200).json({ message: 'Post deletado com sucesso!' });
+    } catch (error) {
+        throw error;
+    }
 };
 
 export { handleAdminEditUser, handleAdminDeleteUser };

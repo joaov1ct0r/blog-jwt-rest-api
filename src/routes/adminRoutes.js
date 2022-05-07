@@ -5,3 +5,5 @@ import {
     handleAdminDeleteUser,
     handleAdminDeletePost
 } from '../controllers/adminController.js';
+
+import admin from '../middlewares/admin.js';

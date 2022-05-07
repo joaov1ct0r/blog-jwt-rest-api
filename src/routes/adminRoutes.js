@@ -13,3 +13,5 @@ let adminRouter = express.Router();
 adminRouter.put('/user/edit', admin, handleAdminEditUser);
 
 adminRouter.delete('/user/delete', admin, handleAdminDeleteUser);
+
+adminRouter.delete('/post/delete', admin, handleAdminDeletePost);

@@ -10,4 +10,4 @@ import admin from '../middlewares/admin.js';
 
 let adminRouter = express.Router();
 
-adminRouter.post('/user/edit', admin, handleAdminEditUser);
+adminRouter.put('/user/edit', admin, handleAdminEditUser);

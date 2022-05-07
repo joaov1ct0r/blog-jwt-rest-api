@@ -130,6 +130,13 @@ let handleAdminDeletePost = async (req, res) => {
 
     if (!matchingPasswords)
         return res.status(401).json({ error: 'Não autorizado!' });
+
+    let isPostRegistered = await Post.findOne({
+        where: { id }
+    });
+
+    if (!isPostRegistered)
+        return res.status(400).json({ error: 'Post não encontrado!' });
 };
 
 export { handleAdminEditUser, handleAdminDeleteUser };

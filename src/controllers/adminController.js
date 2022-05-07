@@ -152,4 +152,4 @@ let handleAdminDeletePost = async (req, res) => {
     }
 };
 
-export { handleAdminEditUser, handleAdminDeleteUser };
+export { handleAdminEditUser, handleAdminDeleteUser, handleAdminDeletePost };

@@ -22,6 +22,10 @@ let Post = dbConnection.define('posts', {
     description: {
         type: DataTypes.STRING(250),
         allowNull: false
+    },
+    content: {
+        type: DataTypes.STRING(250),
+        allowNull: false
     }
 });
 

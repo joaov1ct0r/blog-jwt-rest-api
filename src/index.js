@@ -8,6 +8,8 @@ import postRouter from './routes/postRoutes.js';
 
 import userRouter from './routes/userRoutes.js';
 
+import adminRouter from './routes/adminRoutes.js';
+
 let app = express();
 
 app.use(cors());

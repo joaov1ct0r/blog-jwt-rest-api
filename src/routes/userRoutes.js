@@ -9,7 +9,7 @@ import {
     handleOneUser
 } from '../controllers/userController.js';
 
-import authController from '../middlewares/auth.js';
+import auth from '../middlewares/auth.js';
 
 let userRouter = express.Router();
 
@@ -17,12 +17,12 @@ userRouter.post('/register', handleNewUser);
 
 userRouter.post('/login', handleUserLogin);
 
-userRouter.put('/edit', authController, handleEditUser);
+userRouter.put('/edit', auth, handleEditUser);
 
-userRouter.delete('/delete', authController, handleDeleteUser);
+userRouter.delete('/delete', auth, handleDeleteUser);
 
-userRouter.get('/users', authController, handleAllUsers);
+userRouter.get('/users', auth, handleAllUsers);
 
-userRouter.get('/user', authController, handleOneUser);
+userRouter.get('/user', auth, handleOneUser);
 
 export default userRouter;

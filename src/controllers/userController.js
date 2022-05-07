@@ -135,7 +135,7 @@ let handleEditUser = async (req, res) => {
 let handleDeleteUser = async (req, res) => {
     let { error } = validateHandleDeleteUser(req.body);
 
-    if (!error) return res.status(400).json({ error });
+    if (error) return res.status(400).json({ error });
 
     let { email, password } = req.body;
 

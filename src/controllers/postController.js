@@ -170,7 +170,6 @@ let handleOnePost = async (req, res) => {
 
     try {
         let post = await Post.findOne({
-            include: User,
             where: { id }
         });
 

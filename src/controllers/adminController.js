@@ -47,7 +47,7 @@ let handleAdminEditUser = async (req, res) => {
                 password: bcrypt.hashSync(userNewPassword)
             },
             {
-                where: { userEmail }
+                where: { email: userEmail }
             }
         );
 

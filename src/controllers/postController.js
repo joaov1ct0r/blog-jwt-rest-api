@@ -99,7 +99,7 @@ let handleEditPost = async (req, res) => {
         if (!editedPost)
             return res.status(500).json({ error: 'Falha ao editar Post' });
 
-        res.status(200).json({ editedPost });
+        res.status(200).json({ message: 'Post editado com sucesso!' });
     } catch (error) {
         throw error;
     }

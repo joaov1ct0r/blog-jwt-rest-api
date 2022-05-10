@@ -85,20 +85,6 @@ let handleAdminDeletePost = async (req, res) => {
 
     let { id } = req.body;
 
-    let { userId } = req;
-
-    let isAdminRegistered = await User.findOne({
-        where: { id: userId }
-    });
-
-    if (!isAdminRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
-
-    let isAdminAdmin = isAdminRegistered.admin === true ? true : false;
-
-    if (!isAdminAdmin)
-        return res.status(401).json({ error: 'Não autorizado!' });
-
     let isPostRegistered = await Post.findOne({
         where: { id }
     });

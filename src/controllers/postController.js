@@ -92,15 +92,6 @@ let handleDeletePost = async (req, res) => {
 
     let { id } = req.body;
 
-    let { userId } = req;
-
-    let isUserRegistered = await User.findOne({
-        where: { id: userId }
-    });
-
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
-
     let isPostRegistered = await Post.findOne({
         where: { id }
     });

@@ -97,13 +97,6 @@ let handleEditUser = async (req, res) => {
 
     let id = req.userId;
 
-    let isUserRegistered = await User.findOne({
-        where: { id }
-    });
-
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
-
     try {
         let editedUser = await User.update(
             {
@@ -111,7 +104,7 @@ let handleEditUser = async (req, res) => {
                 password: bcrypt.hashSync(password)
             },
             {
-                where: { id: isUserRegistered.id }
+                where: { id }
             }
         );
 

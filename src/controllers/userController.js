@@ -71,7 +71,8 @@ let handleUserLogin = async (req, res) => {
             {
                 id: isUserRegistered.id
             },
-            process.env.JWT_TOKEN_SECRET
+            process.env.JWT_TOKEN_SECRET,
+            { expiresIn: 300 }
         );
 
         if (!token)

@@ -122,23 +122,16 @@ let handleEditUser = async (req, res) => {
 let handleDeleteUser = async (req, res) => {
     let id = req.userId;
 
-    let isUserRegistered = await User.findOne({
-        where: { id }
-    });
-
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
-
     try {
         let deletedUser = await User.destroy({
-            where: { id: isUserRegistered.id }
+            where: { id }
         });
 
         if (!deletedUser)
             return res.status(500).json({ error: 'Falha ao deletar usuario!' });
 
         let deletedPosts = await Post.destroy({
-            where: { userId: isUserRegistered.id }
+            where: { userId: id }
         });
 
         res.status(200).json({ message: 'Usuario deletado com sucesso!' });

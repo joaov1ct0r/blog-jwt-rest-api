@@ -53,20 +53,6 @@ let handleAdminDeleteUser = async (req, res) => {
 
     let { userEmail } = req.body;
 
-    let id = req.userId;
-
-    let isAdminRegistered = await User.findOne({
-        where: { id }
-    });
-
-    if (!isAdminRegistered)
-        return res.status(400).json({ error: 'Falha na autenticação!' });
-
-    let isAdminAdmin = isAdminRegistered.admin === true ? true : false;
-
-    if (!isAdminAdmin)
-        return res.status(401).json({ error: 'Não autorizado!' });
-
     let isUserRegistered = await User.findOne({
         where: { email: userEmail }
     });

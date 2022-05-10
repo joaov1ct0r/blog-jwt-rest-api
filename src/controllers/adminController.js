@@ -65,21 +65,20 @@ let handleAdminDeleteUser = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, password, userEmail } = req.body;
+    let { userEmail } = req.body;
+
+    let id = req.userId;
 
     let isAdminRegistered = await User.findOne({
-        where: { email }
+        where: { id }
     });
 
     if (!isAdminRegistered)
         return res.status(400).json({ error: 'Falha na autenticação!' });
 
-    let matchingPasswords = await bcrypt.hashSync(
-        password,
-        isAdminRegistered.password
-    );
+    let isAdminAdmin = isAdminRegistered.admin === true ? true : false;
 
-    if (!matchingPasswords)
+    if (!isAdminAdmin)
         return res.status(401).json({ error: 'Não autorizado!' });
 
     let isUserRegistered = await User.findOne({

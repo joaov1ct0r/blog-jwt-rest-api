@@ -111,21 +111,20 @@ let handleAdminDeletePost = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, password, id } = req.body;
+    let { id } = req.body;
+
+    let { userId } = req;
 
     let isAdminRegistered = await User.findOne({
-        where: { email }
+        where: { id: userId }
     });
 
     if (!isAdminRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
-    let matchingPasswords = bcrypt.compareSync(
-        password,
-        isAdminRegistered.password
-    );
+    let isAdminAdmin = isAdminRegistered.admin === true ? true : false;
 
-    if (!matchingPasswords)
+    if (!isAdminAdmin)
         return res.status(401).json({ error: 'Não autorizado!' });
 
     let isPostRegistered = await Post.findOne({

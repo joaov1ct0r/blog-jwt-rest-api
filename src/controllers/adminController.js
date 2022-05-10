@@ -19,13 +19,6 @@ let handleAdminEditUser = async (req, res) => {
 
     let id = req.userId;
 
-    let isAdminRegistered = await User.findOne({
-        where: { id }
-    });
-
-    if (!isAdminRegistered)
-        return res.status(400).json({ error: 'Falha na autenticação!' });
-
     let isUserRegistered = await User.findOne({
         where: { email: userEmail }
     });

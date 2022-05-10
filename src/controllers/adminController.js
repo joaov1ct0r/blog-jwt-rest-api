@@ -17,8 +17,6 @@ let handleAdminEditUser = async (req, res) => {
 
     let { userEmail, userNewEmail, userNewPassword } = req.body;
 
-    let id = req.userId;
-
     let isUserRegistered = await User.findOne({
         where: { email: userEmail }
     });

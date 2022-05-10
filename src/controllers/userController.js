@@ -110,7 +110,7 @@ let handleEditUser = async (req, res) => {
                 password: bcrypt.hashSync(password)
             },
             {
-                where: { id }
+                where: { id: isUserRegistered.id }
             }
         );
 

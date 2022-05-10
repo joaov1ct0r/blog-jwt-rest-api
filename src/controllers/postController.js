@@ -52,22 +52,16 @@ let handleEditPost = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, password, title, description, content, id } = req.body;
+    let { title, description, content, id } = req.body;
+
+    let { userId } = req;
 
     let isUserRegistered = await User.findOne({
-        where: { email }
+        where: { id: userId }
     });
 
     if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
-
-    let matchingPasswords = bcrypt.compareSync(
-        password,
-        isUserRegistered.password
-    );
-
-    if (!matchingPasswords)
-        return res.status(401).json({ error: 'Não autorizado!' });
 
     let isPostRegistered = await Post.findOne({
         where: { id }

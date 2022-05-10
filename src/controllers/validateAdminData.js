@@ -12,8 +12,6 @@ let validateHandleAdminEditUser = data => {
 
 let validateHandleAdminDeleteUser = data => {
     let schema = Joi.object({
-        email: Joi.string().required().min(10).max(100),
-        password: Joi.string().required().min(8).max(250),
         userEmail: Joi.string().required().min(10).max(100)
     });
 

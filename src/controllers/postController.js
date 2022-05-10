@@ -51,12 +51,9 @@ let handleEditPost = async (req, res) => {
 
     let { userId } = req;
 
-    let isUserRegistered = await User.findOne({
+    let user = await User.findOne({
         where: { id: userId }
     });
-
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
 
     let isPostRegistered = await Post.findOne({
         where: { id }
@@ -68,11 +65,11 @@ let handleEditPost = async (req, res) => {
     try {
         let editedPost = await Post.update(
             {
-                author: isUserRegistered.email,
+                author: user.email,
                 title,
                 description,
                 content,
-                userId: isUserRegistered.id
+                userId: user.id
             },
             {
                 where: { id }

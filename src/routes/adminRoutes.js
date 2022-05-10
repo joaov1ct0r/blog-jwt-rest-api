@@ -6,6 +6,8 @@ import {
     handleAdminDeletePost
 } from '../controllers/adminController.js';
 
+import auth from '../middlewares/auth.js';
+
 import admin from '../middlewares/admin.js';
 
 let adminRouter = express.Router();

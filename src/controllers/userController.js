@@ -93,31 +93,25 @@ let handleEditUser = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let { email, password, newEmail, newPassword } = req.body;
+    let { email, password } = req.body;
+
+    let id = req.userId;
 
     let isUserRegistered = await User.findOne({
-        where: { email }
+        where: { id }
     });
 
     if (!isUserRegistered)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
-    let matchingPasswords = bcrypt.compareSync(
-        password,
-        isUserRegistered.password
-    );
-
-    if (!matchingPasswords)
-        return res.status(401).json({ error: 'Não autorizado!' });
-
     try {
         let editedUser = await User.update(
             {
-                email: newEmail,
-                password: bcrypt.hashSync(newPassword)
+                email,
+                password: bcrypt.hashSync(password)
             },
             {
-                where: { email }
+                where: { id }
             }
         );
 

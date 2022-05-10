@@ -21,9 +21,7 @@ let validateHandleUserLogin = data => {
 let validateHandleUserEdit = data => {
     let schema = Joi.object({
         email: Joi.string().required().min(10).max(100),
-        password: Joi.string().required().min(8).max(250),
-        newEmail: Joi.string().required().min(10).max(100),
-        newPassword: Joi.string().required().min(8).max(250)
+        password: Joi.string().required().min(8).max(250)
     });
 
     return schema.validate(data);

@@ -18,20 +18,17 @@ let handleNewPost = async (req, res) => {
 
     let id = req.userId;
 
-    let isUserRegistered = await User.findOne({
+    let user = await User.findOne({
         where: { id }
     });
 
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
-
     try {
         let newPost = await Post.create({
-            author: isUserRegistered.email,
+            author: user.email,
             title,
             description,
             content,
-            userId: isUserRegistered.id
+            userId: user.id
         });
 
         if (!newPost)

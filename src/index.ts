@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import cors from 'cors';
 
-import express from 'express';
+import express, { Express } from 'express';
 
 import postRouter from './routes/postRoutes.js';
 
@@ -10,7 +10,7 @@ import userRouter from './routes/userRoutes.js';
 
 import adminRouter from './routes/adminRoutes.js';
 
-let app = express();
+let app: Express = express();
 
 app.use(cors());
 

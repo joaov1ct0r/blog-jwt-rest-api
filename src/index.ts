@@ -10,7 +10,7 @@ import userRouter from './routes/userRoutes.js';
 
 import adminRouter from './routes/adminRoutes.js';
 
-let app: Express = express();
+const app: Express = express();
 
 app.use(cors());
 

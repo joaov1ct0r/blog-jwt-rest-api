@@ -11,7 +11,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "noEmitOnError": true,
-    "removeComments": true
+    "removeComments": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/interfaces"
+    ]
   },
   "include": ["./src/**/*"]
 }

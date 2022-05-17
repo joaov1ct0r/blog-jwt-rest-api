@@ -1,4 +1,4 @@
-import User from '../models/userModel.js';
+import User from '../database/models/userModel.js';
 
 export default async function (req, res, next) {
     let id = req.userId;

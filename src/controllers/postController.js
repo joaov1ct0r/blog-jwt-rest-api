@@ -1,6 +1,6 @@
-import User from '../models/userModel.js';
+import User from '../database/models/userModel.js';
 
-import Post from '../models/postModel.js';
+import Post from '../database/models/postModel.js';
 
 import {
     validateHandleNewPost,

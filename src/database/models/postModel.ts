@@ -1,4 +1,4 @@
-import dbConnection from '../config/database.js';
+import DB from "../config/database.ts"
 
 import User from './userModel.js';
 

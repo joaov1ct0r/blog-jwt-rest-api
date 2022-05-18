@@ -1,4 +1,4 @@
-import DB from "../config/database.js";
+import DB from "../config/database";
 
 import { DataTypes } from "sequelize/types";
 

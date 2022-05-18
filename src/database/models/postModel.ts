@@ -2,7 +2,7 @@ import DB from "../config/database";
 
 import User from "../models/userModel";
 
-import { DataTypes } from 'sequelize';
+import { DataTypes } from "sequelize/types";
 
 let Post = dbConnection.define(
     'posts',

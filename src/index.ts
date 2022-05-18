@@ -24,6 +24,6 @@ app.use("/api/post", postRouter);
 
 app.use("/api/admin", adminRouter);
 
-app.listen(process.env.SERVER_PORT, () => {
+app.listen(process.env.SERVER_PORT, (): void => {
   console.log("Server running!");
 });

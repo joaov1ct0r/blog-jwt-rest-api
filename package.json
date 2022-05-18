@@ -11,6 +11,7 @@
   },
   "keywords": [
     "javascript",
+    "typescript",
     "nodejs",
     "blog",
     "rest api",
@@ -19,7 +20,12 @@
     "jsonwebtoken",
     "bcrypt",
     "sequelize",
-    "mysql"
+    "mysql",
+    "ts-node",
+    "@types/node",
+    "@types/express",
+    "@types/cors",
+    "eslint"
   ],
   "author": "github.com/joaov1ct0r",
   "license": "ISC",

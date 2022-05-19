@@ -4,7 +4,7 @@ import cors from "cors";
 
 import express, { Express } from "express";
 
-import postRouter from "./routes/postRoutes.js";
+import postRouter from "./routes/postRoutes";
 
 import userRouter from "./routes/userRoutes.js";
 

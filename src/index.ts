@@ -2,7 +2,7 @@ import "dotenv/config";
 
 import cors from "cors";
 
-import express, { Express } from "express";
+import express from "express";
 
 import postRouter from "./routes/postRoutes";
 
@@ -10,7 +10,7 @@ import userRouter from "./routes/userRoutes";
 
 import adminRouter from "./routes/adminRoutes";
 
-const app: Express = express();
+const app: express.Express = express();
 
 app.use(cors());
 

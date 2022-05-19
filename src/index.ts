@@ -8,7 +8,7 @@ import postRouter from "./routes/postRoutes";
 
 import userRouter from "./routes/userRoutes";
 
-import adminRouter from "./routes/adminRoutes.js";
+import adminRouter from "./routes/adminRoutes";
 
 const app: Express = express();
 

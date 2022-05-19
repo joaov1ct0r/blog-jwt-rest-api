@@ -1,28 +1,28 @@
-import express from 'express';
+import express from "express";
 
 import {
-    handleNewUser,
-    handleUserLogin,
-    handleEditUser,
-    handleDeleteUser,
-    handleAllUsers,
-    handleOneUser
-} from '../controllers/userController.js';
+  handleNewUser,
+  handleUserLogin,
+  handleEditUser,
+  handleDeleteUser,
+  handleAllUsers,
+  handleOneUser
+} from "../controllers/userController.js";
 
-import auth from '../middlewares/auth.js';
+import auth from "../middlewares/auth.js";
 
-let userRouter = express.Router();
+const userRouter: express.Router = express.Router();
 
-userRouter.post('/register', handleNewUser);
+userRouter.post("/register", handleNewUser);
 
-userRouter.post('/login', handleUserLogin);
+userRouter.post("/login", handleUserLogin);
 
-userRouter.put('/edit', auth, handleEditUser);
+userRouter.put("/edit", auth, handleEditUser);
 
-userRouter.delete('/delete', auth, handleDeleteUser);
+userRouter.delete("/delete", auth, handleDeleteUser);
 
-userRouter.get('/users', auth, handleAllUsers);
+userRouter.get("/users", auth, handleAllUsers);
 
-userRouter.get('/user', auth, handleOneUser);
+userRouter.get("/user", auth, handleOneUser);
 
 export default userRouter;

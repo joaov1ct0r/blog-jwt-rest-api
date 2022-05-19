@@ -6,7 +6,7 @@ import express, { Express } from "express";
 
 import postRouter from "./routes/postRoutes";
 
-import userRouter from "./routes/userRoutes.js";
+import userRouter from "./routes/userRoutes";
 
 import adminRouter from "./routes/adminRoutes.js";
 

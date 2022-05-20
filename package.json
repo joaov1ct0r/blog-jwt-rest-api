@@ -31,6 +31,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@types/hapi__joi": "^17.1.8",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^13.0.0",

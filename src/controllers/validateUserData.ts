@@ -1,7 +1,7 @@
 import Joi from "@hapi/joi";
 
 const validateHandleNewUser = (data: Object): Joi.ValidationResult => {
-  const schema = Joi.object({
+  const schema: Joi.ObjectSchema<Object> = Joi.object({
     email: Joi.string().required().min(10).max(100),
     password: Joi.string().required().min(8).max(250)
   });
@@ -9,8 +9,8 @@ const validateHandleNewUser = (data: Object): Joi.ValidationResult => {
   return schema.validate(data);
 };
 
-let validateHandleUserLogin = data => {
-  let schema = Joi.object({
+const validateHandleUserLogin = (data: Object): Joi.ValidationResult => {
+  const schema: Joi.ObjectSchema<Object> = Joi.object({
     email: Joi.string().required().min(10).max(100),
     password: Joi.string().required().min(8).max(250)
   });

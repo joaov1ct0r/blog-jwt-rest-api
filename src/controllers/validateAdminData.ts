@@ -19,7 +19,7 @@ const validateHandleAdminDeleteUser = (data: Object): Joi.ValidationResult => {
 };
 
 const validateHandleAdminDeletePost = (data: Object): Joi.ValidationResult => {
-  const schema: Joi.ObjectSchema = Joi.object({
+  const schema: Joi.ObjectSchema<Object> = Joi.object({
     id: Joi.string().required().min(1)
   });
 

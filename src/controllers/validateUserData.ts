@@ -1,43 +1,43 @@
-import Joi from '@hapi/joi';
+import Joi from "@hapi/joi";
 
-let validateHandleNewUser = data => {
-    let schema = Joi.object({
-        email: Joi.string().required().min(10).max(100),
-        password: Joi.string().required().min(8).max(250)
-    });
+const validateHandleNewUser = (data: Object): Joi.ValidationResult => {
+  const schema = Joi.object({
+    email: Joi.string().required().min(10).max(100),
+    password: Joi.string().required().min(8).max(250)
+  });
 
-    return schema.validate(data);
+  return schema.validate(data);
 };
 
 let validateHandleUserLogin = data => {
-    let schema = Joi.object({
-        email: Joi.string().required().min(10).max(100),
-        password: Joi.string().required().min(8).max(250)
-    });
+  let schema = Joi.object({
+    email: Joi.string().required().min(10).max(100),
+    password: Joi.string().required().min(8).max(250)
+  });
 
-    return schema.validate(data);
+  return schema.validate(data);
 };
 
 let validateHandleUserEdit = data => {
-    let schema = Joi.object({
-        email: Joi.string().required().min(10).max(100),
-        password: Joi.string().required().min(8).max(250)
-    });
+  let schema = Joi.object({
+    email: Joi.string().required().min(10).max(100),
+    password: Joi.string().required().min(8).max(250)
+  });
 
-    return schema.validate(data);
+  return schema.validate(data);
 };
 
 let validateHandleOneUser = data => {
-    let schema = Joi.object({
-        email: Joi.string().required().min(10).max(100)
-    });
+  let schema = Joi.object({
+    email: Joi.string().required().min(10).max(100)
+  });
 
-    return schema.validate(data);
+  return schema.validate(data);
 };
 
 export {
-    validateHandleNewUser,
-    validateHandleUserLogin,
-    validateHandleUserEdit,
-    validateHandleOneUser
+  validateHandleNewUser,
+  validateHandleUserLogin,
+  validateHandleUserEdit,
+  validateHandleOneUser
 };

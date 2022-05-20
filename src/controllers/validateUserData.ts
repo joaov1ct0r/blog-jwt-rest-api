@@ -27,8 +27,8 @@ const validateHandleUserEdit = (data: Object): Joi.ValidationResult => {
   return schema.validate(data);
 };
 
-let validateHandleOneUser = data => {
-  let schema = Joi.object({
+const validateHandleOneUser = (data: Object): Joi.ValidationResult => {
+  const schema: Joi.ObjectSchema<Object> = Joi.object({
     email: Joi.string().required().min(10).max(100)
   });
 

@@ -29,8 +29,8 @@ const validateHandleDeletePost = (data: Object): Joi.ValidationResult => {
   return schema.validate(data);
 };
 
-let validateHandleOnePost = data => {
-  let schema = Joi.object({
+const validateHandleOnePost = (data: Object): Joi.ValidationResult => {
+  const schema: Joi.ObjectSchema = Joi.object({
     id: Joi.string().required().min(1).max(10)
   });
 

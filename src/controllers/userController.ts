@@ -44,21 +44,22 @@ const handleNewUser = async (req: Request, res: Response) => {
   res.status(201).json(newUser);
 };
 
-let handleUserLogin = async (req, res) => {
-  let { error } = validateHandleUserLogin(req.body);
+const handleUserLogin = async (req: Request, res: Response) => {
+  const { error } = validateHandleUserLogin(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { email, password } = req.body;
+  const { email, password } = req.body;
 
-  let isUserRegistered = await User.findOne({
+  const isUserRegistered = await User.findOne({
     where: { email }
   });
 
-  if (!isUserRegistered)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
+  if (!isUserRegistered) {
+    return res.status(400).json({ error: "Usuario não encontrado!" });
+  }
 
-  let matchingPasswords = bcrypt.compareSync(
+  const matchingPasswords: boolean = bcrypt.compareSync(
     password,
     isUserRegistered.password
   );

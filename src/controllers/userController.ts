@@ -1,187 +1,187 @@
 import {
-    validateHandleNewUser,
-    validateHandleUserLogin,
-    validateHandleUserEdit,
-    validateHandleOneUser
-} from './validateUserData.js';
+  validateHandleNewUser,
+  validateHandleUserLogin,
+  validateHandleUserEdit,
+  validateHandleOneUser
+} from "./validateUserData.js";
 
-import User from '../database/models/userModel.js';
+import User from "../database/models/userModel.js";
 
-import Post from '../database/models/postModel.js';
+import Post from "../database/models/postModel.js";
 
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 let handleNewUser = async (req, res) => {
-    let { error } = validateHandleNewUser(req.body);
+  let { error } = validateHandleNewUser(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { email, password } = req.body;
+  let { email, password } = req.body;
 
-    let isUserRegistered = await User.findOne({
-        where: { email }
+  let isUserRegistered = await User.findOne({
+    where: { email }
+  });
+
+  if (isUserRegistered)
+    return res.status(400).json({ error: 'Usuario já cadastrado!' });
+
+  try {
+    let newUser = await User.create({
+      email,
+      password: bcrypt.hashSync(password)
     });
 
-    if (isUserRegistered)
-        return res.status(400).json({ error: 'Usuario já cadastrado!' });
+    if (!newUser)
+      return res
+        .status(500)
+        .json({ error: 'Falha ao cadastrar novo usuario!' });
 
-    try {
-        let newUser = await User.create({
-            email,
-            password: bcrypt.hashSync(password)
-        });
-
-        if (!newUser)
-            return res
-                .status(500)
-                .json({ error: 'Falha ao cadastrar novo usuario!' });
-
-        res.status(200).json({ newUser });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ newUser });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleUserLogin = async (req, res) => {
-    let { error } = validateHandleUserLogin(req.body);
+  let { error } = validateHandleUserLogin(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { email, password } = req.body;
+  let { email, password } = req.body;
 
-    let isUserRegistered = await User.findOne({
-        where: { email }
-    });
+  let isUserRegistered = await User.findOne({
+    where: { email }
+  });
 
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
+  if (!isUserRegistered)
+    return res.status(400).json({ error: 'Usuario não encontrado!' });
 
-    let matchingPasswords = bcrypt.compareSync(
-        password,
-        isUserRegistered.password
+  let matchingPasswords = bcrypt.compareSync(
+    password,
+    isUserRegistered.password
+  );
+
+  if (!matchingPasswords)
+    return res.status(400).json({ error: 'Falha na autenticação!' });
+
+  try {
+    let token = jwt.sign(
+      {
+        id: isUserRegistered.id
+      },
+      process.env.JWT_TOKEN_SECRET,
+      { expiresIn: 300 }
     );
 
-    if (!matchingPasswords)
-        return res.status(400).json({ error: 'Falha na autenticação!' });
+    if (!token)
+      return res.status(500).json({ error: 'Falha ao gerar token!' });
 
-    try {
-        let token = jwt.sign(
-            {
-                id: isUserRegistered.id
-            },
-            process.env.JWT_TOKEN_SECRET,
-            { expiresIn: 300 }
-        );
+    res.header('Authorization', `Bearer ${token}`);
 
-        if (!token)
-            return res.status(500).json({ error: 'Falha ao gerar token!' });
-
-        res.header('Authorization', `Bearer ${token}`);
-
-        res.status(200).json({
-            message: 'Login realizado com sucesso!'
-        });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({
+      message: 'Login realizado com sucesso!'
+    });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleEditUser = async (req, res) => {
-    let { error } = validateHandleUserEdit(req.body);
+  let { error } = validateHandleUserEdit(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { email, password } = req.body;
+  let { email, password } = req.body;
 
-    let id = req.userId;
+  let id = req.userId;
 
-    try {
-        let editedUser = await User.update(
-            {
-                email,
-                password: bcrypt.hashSync(password)
-            },
-            {
-                where: { id }
-            }
-        );
+  try {
+    let editedUser = await User.update(
+      {
+        email,
+        password: bcrypt.hashSync(password)
+      },
+      {
+        where: { id }
+      }
+    );
 
-        if (!editedUser)
-            return res
-                .status(500)
-                .json({ error: 'Falha ao atualizar usuario!' });
+    if (!editedUser)
+      return res
+        .status(500)
+        .json({ error: 'Falha ao atualizar usuario!' });
 
-        res.status(200).json({ message: 'Usuario editado com sucesso!' });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ message: 'Usuario editado com sucesso!' });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleDeleteUser = async (req, res) => {
-    let id = req.userId;
+  let id = req.userId;
 
-    try {
-        let deletedUser = await User.destroy({
-            where: { id }
-        });
+  try {
+    let deletedUser = await User.destroy({
+      where: { id }
+    });
 
-        if (!deletedUser)
-            return res.status(500).json({ error: 'Falha ao deletar usuario!' });
+    if (!deletedUser)
+      return res.status(500).json({ error: 'Falha ao deletar usuario!' });
 
-        let deletedPosts = await Post.destroy({
-            where: { userId: id }
-        });
+    let deletedPosts = await Post.destroy({
+      where: { userId: id }
+    });
 
-        res.status(200).json({ message: 'Usuario deletado com sucesso!' });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ message: 'Usuario deletado com sucesso!' });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleAllUsers = async (req, res) => {
-    try {
-        let users = await User.findAll({
-            include: Post
-        });
+  try {
+    let users = await User.findAll({
+      include: Post
+    });
 
-        if (!users)
-            return res.status(500).json({ error: 'Falha ao obter dados!' });
+    if (!users)
+      return res.status(500).json({ error: 'Falha ao obter dados!' });
 
-        res.status(200).json({ users });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ users });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleOneUser = async (req, res) => {
-    let { error } = validateHandleOneUser(req.body);
+  let { error } = validateHandleOneUser(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { email } = req.body;
+  let { email } = req.body;
 
-    try {
-        let isUserRegistered = await User.findOne({
-            include: Post,
-            where: { email }
-        });
+  try {
+    let isUserRegistered = await User.findOne({
+      include: Post,
+      where: { email }
+    });
 
-        if (!isUserRegistered)
-            return res.status(500).json({ error: 'Usuario não encontrado!' });
+    if (!isUserRegistered)
+      return res.status(500).json({ error: 'Usuario não encontrado!' });
 
-        res.status(200).json({ isUserRegistered });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ isUserRegistered });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export {
-    handleNewUser,
-    handleUserLogin,
-    handleEditUser,
-    handleDeleteUser,
-    handleAllUsers,
-    handleOneUser
+  handleNewUser,
+  handleUserLogin,
+  handleEditUser,
+  handleDeleteUser,
+  handleAllUsers,
+  handleOneUser
 };

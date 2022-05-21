@@ -2,7 +2,7 @@ import DB from "../config/database";
 
 import User from "../models/userModel";
 
-import { DataTypes } from "sequelize/types";
+import { DataTypes } from "sequelize";
 
 const Post = DB.define(
   "posts",

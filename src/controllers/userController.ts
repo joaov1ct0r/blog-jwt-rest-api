@@ -20,30 +20,28 @@ const handleNewUser = async (req: Request, res: Response) => {
 
   if (error) return res.status(400).json({ error });
 
-  let { email, password } = req.body;
+  const { email, password } = req.body;
 
-  let isUserRegistered = await User.findOne({
+  const isUserRegistered = await User.findOne({
     where: { email }
   });
 
-  if (isUserRegistered)
-    return res.status(400).json({ error: 'Usuario já cadastrado!' });
-
-  try {
-    let newUser = await User.create({
-      email,
-      password: bcrypt.hashSync(password)
-    });
-
-    if (!newUser)
-      return res
-        .status(500)
-        .json({ error: 'Falha ao cadastrar novo usuario!' });
-
-    res.status(201).json(newUser);
-  } catch (error) {
-    throw error;
+  if (isUserRegistered) {
+    return res.status(400).json({ error: "Usuario já cadastrado!" });
   }
+
+  const newUser = await User.create({
+    email,
+    password: bcrypt.hashSync(password)
+  });
+
+  if (!newUser) {
+    return res
+      .status(500)
+      .json({ error: "Falha ao cadastrar novo usuario!" });
+  }
+
+  res.status(201).json(newUser);
 };
 
 let handleUserLogin = async (req, res) => {

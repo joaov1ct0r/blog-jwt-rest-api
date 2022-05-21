@@ -13,8 +13,10 @@ import bcrypt from "bcryptjs";
 
 import jwt from "jsonwebtoken";
 
-let handleNewUser = async (req, res) => {
-  let { error } = validateHandleNewUser(req.body);
+import { Request, Response } from "express";
+
+const handleNewUser = async (req: Request, res: Response) => {
+  const { error } = validateHandleNewUser(req.body);
 
   if (error) return res.status(400).json({ error });
 
@@ -38,7 +40,7 @@ let handleNewUser = async (req, res) => {
         .status(500)
         .json({ error: 'Falha ao cadastrar novo usuario!' });
 
-    res.status(200).json({ newUser });
+    res.status(201).json(newUser);
   } catch (error) {
     throw error;
   }
@@ -113,7 +115,7 @@ let handleEditUser = async (req, res) => {
         .status(500)
         .json({ error: 'Falha ao atualizar usuario!' });
 
-    res.status(200).json({ message: 'Usuario editado com sucesso!' });
+    res.status(204).json({ message: 'Usuario editado com sucesso!' });
   } catch (error) {
     throw error;
   }
@@ -134,7 +136,7 @@ let handleDeleteUser = async (req, res) => {
       where: { userId: id }
     });
 
-    res.status(200).json({ message: 'Usuario deletado com sucesso!' });
+    res.status(204).json({ message: 'Usuario deletado com sucesso!' });
   } catch (error) {
     throw error;
   }
@@ -149,7 +151,7 @@ let handleAllUsers = async (req, res) => {
     if (!users)
       return res.status(500).json({ error: 'Falha ao obter dados!' });
 
-    res.status(200).json({ users });
+    res.status(200).json(users);
   } catch (error) {
     throw error;
   }
@@ -171,7 +173,7 @@ let handleOneUser = async (req, res) => {
     if (!isUserRegistered)
       return res.status(500).json({ error: 'Usuario não encontrado!' });
 
-    res.status(200).json({ isUserRegistered });
+    res.status(200).json(isUserRegistered);
   } catch (error) {
     throw error;
   }

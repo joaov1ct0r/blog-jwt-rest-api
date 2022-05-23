@@ -15,7 +15,7 @@ import jwt from "jsonwebtoken";
 
 import { Request, Response } from "express";
 
-const handleNewUser = async (req: Request, res: Response) => {
+const handleNewUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleNewUser(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -41,7 +41,7 @@ const handleNewUser = async (req: Request, res: Response) => {
       .json({ error: "Falha ao cadastrar novo usuario!" });
   }
 
-  res.status(201).json(newUser);
+  return res.status(201).json(newUser);
 };
 
 const handleUserLogin = async (req: Request, res: Response) => {

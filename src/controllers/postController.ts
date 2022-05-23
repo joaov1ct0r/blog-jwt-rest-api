@@ -108,17 +108,14 @@ const handleDeletePost = async (req: Request, res: Response) => {
   return res.status(200).json({ message: "Post deletado com sucesso!" });
 };
 
-let handleAllPosts = async (req, res) => {
-  try {
-    let posts = await Post.findAll({});
+const handleAllPosts = async (req: Request, res: Response) => {
+  const posts = await Post.findAll({});
 
-    if (!posts)
-      return res.status(500).json({ error: 'Falha ao obter dados!' });
-
-    res.status(200).json({ posts });
-  } catch (error) {
-    throw error;
+  if (!posts) {
+    return res.status(500).json({ error: "Falha ao obter dados!" });
   }
+
+  return res.status(200).json({ posts });
 };
 
 let handleOnePost = async (req, res) => {

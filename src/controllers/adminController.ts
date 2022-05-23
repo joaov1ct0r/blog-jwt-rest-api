@@ -4,6 +4,8 @@ import Post from "../database/models/postModel";
 
 import bcrypt from "bcryptjs";
 
+import { Request, Response } from "express";
+
 import {
   validateHandleAdminEditUser,
   validateHandleAdminDeleteUser,

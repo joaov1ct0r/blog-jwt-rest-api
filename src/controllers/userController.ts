@@ -160,7 +160,7 @@ const handleOneUser = async (req: Request, res: Response) => {
 
   if (!isUserRegistered) {
     return res.status(500).json({ error: "Usuario não encontrado!" });
-  }
+  };
 
   return res.status(200).json(isUserRegistered);
 };

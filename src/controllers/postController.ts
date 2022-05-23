@@ -41,47 +41,45 @@ const handleNewPost = async (req: Request, res: Response) => {
   return res.status(200).json({ newPost });
 };
 
-let handleEditPost = async (req, res) => {
-  let { error } = validateHandleEditPost(req.body);
+const handleEditPost = async (req: Request, res: Response) => {
+  const { error } = validateHandleEditPost(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { title, description, content, id } = req.body;
+  const { title, description, content, id } = req.body;
 
-  let { userId } = req;
+  const { userId } = req;
 
-  let user = await User.findOne({
+  const user = await User.findOne({
     where: { id: userId }
   });
 
-  let isPostRegistered = await Post.findOne({
+  const isPostRegistered = await Post.findOne({
     where: { id }
   });
 
-  if (!isPostRegistered)
-    return res.status(400).json({ error: 'Post não encontrado!' });
-
-  try {
-    let editedPost = await Post.update(
-      {
-        author: user.email,
-        title,
-        description,
-        content,
-        userId: user.id
-      },
-      {
-        where: { id }
-      }
-    );
-
-    if (!editedPost)
-      return res.status(500).json({ error: 'Falha ao editar Post' });
-
-    res.status(200).json({ message: 'Post editado com sucesso!' });
-  } catch (error) {
-    throw error;
+  if (!isPostRegistered) {
+    return res.status(400).json({ error: "Post não encontrado!" });
   }
+
+  const editedPost = await Post.update(
+    {
+      author: user!.email,
+      title,
+      description,
+      content,
+      userId: user!.id
+    },
+    {
+      where: { id }
+    }
+  );
+
+  if (!editedPost) {
+    return res.status(500).json({ error: "Falha ao editar Post" });
+  }
+
+  return res.status(200).json({ message: "Post editado com sucesso!" });
 };
 
 let handleDeletePost = async (req, res) => {

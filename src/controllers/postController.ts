@@ -36,7 +36,7 @@ const handleNewPost = async (req: Request, res: Response) => {
     return res
       .status(500)
       .json({ error: "Falha ao registrar novo Post" });
-  }
+  };
 
   return res.status(200).json({ newPost });
 };

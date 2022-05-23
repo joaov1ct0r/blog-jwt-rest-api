@@ -8,7 +8,7 @@ import {
   validateHandleAdminEditUser,
   validateHandleAdminDeleteUser,
   validateHandleAdminDeletePost
-} from './validateAdminData.js';
+} from "./validateAdminData";
 
 let handleAdminEditUser = async (req, res) => {
   let { error } = validateHandleAdminEditUser(req.body);

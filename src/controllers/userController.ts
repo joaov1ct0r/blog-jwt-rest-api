@@ -134,19 +134,16 @@ const handleDeleteUser = async (req: Request, res: Response) => {
   return res.status(204).json({ message: "Usuario deletado com sucesso!" });
 };
 
-let handleAllUsers = async (req, res) => {
-  try {
-    let users = await User.findAll({
-      include: Post
-    });
+const handleAllUsers = async (req: Request, res: Response) => {
+  const users = await User.findAll({
+    include: Post
+  });
 
-    if (!users)
-      return res.status(500).json({ error: 'Falha ao obter dados!' });
-
-    res.status(200).json(users);
-  } catch (error) {
-    throw error;
+  if (!users) {
+    return res.status(500).json({ error: 'Falha ao obter dados!' });
   }
+
+  return res.status(200).json(users);
 };
 
 let handleOneUser = async (req, res) => {

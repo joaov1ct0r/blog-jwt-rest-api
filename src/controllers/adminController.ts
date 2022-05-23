@@ -12,40 +12,38 @@ import {
   validateHandleAdminDeletePost
 } from "./validateAdminData";
 
-let handleAdminEditUser = async (req, res) => {
-  let { error } = validateHandleAdminEditUser(req.body);
+const handleAdminEditUser = async (req: Request, res: Response) => {
+  const { error } = validateHandleAdminEditUser(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { userEmail, userNewEmail, userNewPassword } = req.body;
+  const { userEmail, userNewEmail, userNewPassword } = req.body;
 
-  let isUserRegistered = await User.findOne({
+  const isUserRegistered = await User.findOne({
     where: { email: userEmail }
   });
 
-  if (!isUserRegistered)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
+  if (!isUserRegistered) {
+    return res.status(400).json({ error: "Usuario não encontrado!" });
+  };
 
-  try {
-    let editedUser = await User.update(
-      {
-        email: userNewEmail,
-        password: bcrypt.hashSync(userNewPassword)
-      },
-      {
-        where: { email: userEmail }
-      }
-    );
+  const editedUser = await User.update(
+    {
+      email: userNewEmail,
+      password: bcrypt.hashSync(userNewPassword)
+    },
+    {
+      where: { email: userEmail }
+    }
+  );
 
-    if (!editedUser)
-      return res
-        .status(500)
-        .json({ error: 'Falha ao atualizar usuario!' });
-
-    res.status(200).json({ message: 'Usuario editado com sucesso!' });
-  } catch (error) {
-    throw error;
+  if (!editedUser) {
+    return res
+      .status(500)
+      .json({ error: "Falha ao atualizar usuario!" });
   }
+
+  return res.status(200).json({ message: "Usuario editado com sucesso!" });
 };
 
 let handleAdminDeleteUser = async (req, res) => {

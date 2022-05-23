@@ -1,13 +1,8 @@
 import DB from "../config/database";
 
-import { DataTypes, Model } from "sequelize";
+import { DataTypes } from "sequelize";
 
-interface IUser extends Model {
-  id: number;
-  email: string;
-  password: string;
-  admin?: boolean;
-}
+import IUser from "../../types/userInterface";
 
 const User = DB.define<IUser>(
   "users",

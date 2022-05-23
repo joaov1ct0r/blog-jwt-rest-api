@@ -25,11 +25,11 @@ const handleNewPost = async (req: Request, res: Response) => {
   });
 
   const newPost = await Post.create({
-    author: user.email,
+    author: user!.email,
     title,
     description,
     content,
-    userId: user.id
+    userId: user!.id
   });
 
   if (!newPost) {

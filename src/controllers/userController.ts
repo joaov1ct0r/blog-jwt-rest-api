@@ -28,7 +28,7 @@ const handleNewUser = async (req: Request, res: Response) => {
 
   if (isUserRegistered) {
     return res.status(400).json({ error: "Usuario já cadastrado!" });
-  }
+  };
 
   const newUser = await User.create({
     email,
@@ -39,7 +39,7 @@ const handleNewUser = async (req: Request, res: Response) => {
     return res
       .status(500)
       .json({ error: "Falha ao cadastrar novo usuario!" });
-  }
+  };
 
   return res.status(201).json(newUser);
 };

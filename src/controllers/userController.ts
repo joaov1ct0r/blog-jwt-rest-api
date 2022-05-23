@@ -82,7 +82,7 @@ const handleUserLogin = async (req: Request, res: Response) => {
 
   res.header("Authorization", `Bearer ${token}`);
 
-  res.status(200).json({
+  return res.status(200).json({
     message: "Login realizado com sucesso!"
   });
 };

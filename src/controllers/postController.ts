@@ -7,7 +7,7 @@ import {
   validateHandleEditPost,
   validateHandleDeletePost,
   validateHandleOnePost
-} from './validatePostData.js';
+} from "./validatePostData";
 
 let handleNewPost = async (req, res) => {
   let { error } = validateHandleNewPost(req.body);

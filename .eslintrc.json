@@ -4,7 +4,8 @@
         "node": true
     },
     "extends": [
-        "standard"
+        "standard",
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -15,6 +16,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "prettier/prettier": "error",
         "semi": [
             "error",
             "always"

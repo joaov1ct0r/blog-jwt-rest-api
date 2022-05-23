@@ -118,25 +118,22 @@ const handleAllPosts = async (req: Request, res: Response) => {
   return res.status(200).json({ posts });
 };
 
-let handleOnePost = async (req, res) => {
-  let { error } = validateHandleOnePost(req.body);
+const handleOnePost = async (req: Request, res: Response) => {
+  const { error } = validateHandleOnePost(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { id } = req.body;
+  const { id } = req.body;
 
-  try {
-    let post = await Post.findOne({
-      where: { id }
-    });
+  const post = await Post.findOne({
+    where: { id }
+  });
 
-    if (!post)
-      return res.status(400).json({ error: 'Post não encontrado!' });
-
-    res.status(200).json({ post });
-  } catch (error) {
-    throw error;
+  if (!post) {
+    return res.status(400).json({ error: "Post não encontrado!" });
   }
+
+  return res.status(200).json({ post });
 };
 
 export {

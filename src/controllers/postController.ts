@@ -113,7 +113,7 @@ const handleAllPosts = async (req: Request, res: Response) => {
 
   if (!posts) {
     return res.status(500).json({ error: "Falha ao obter dados!" });
-  }
+  };
 
   return res.status(200).json({ posts });
 };

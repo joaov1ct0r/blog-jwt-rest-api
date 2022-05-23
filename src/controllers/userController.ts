@@ -57,7 +57,7 @@ const handleUserLogin = async (req: Request, res: Response) => {
 
   if (!isUserRegistered) {
     return res.status(400).json({ error: "Usuario não encontrado!" });
-  }
+  };
 
   const matchingPasswords = bcrypt.compareSync(
     password,
@@ -66,7 +66,7 @@ const handleUserLogin = async (req: Request, res: Response) => {
 
   if (!matchingPasswords) {
     return res.status(400).json({ error: "Falha na autenticação!" });
-  }
+  };
 
   const token = jwt.sign(
     {
@@ -78,7 +78,7 @@ const handleUserLogin = async (req: Request, res: Response) => {
 
   if (!token) {
     return res.status(500).json({ error: "Falha ao gerar token!" });
-  }
+  };
 
   res.header("Authorization", `Bearer ${token}`);
 

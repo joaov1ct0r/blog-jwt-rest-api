@@ -2,7 +2,7 @@ import User from "../database/models/userModel";
 
 import Post from "../database/models/postModel";
 
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 import {
   validateHandleAdminEditUser,

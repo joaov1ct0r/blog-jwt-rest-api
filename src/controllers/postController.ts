@@ -95,7 +95,7 @@ const handleDeletePost = async (req: Request, res: Response) => {
 
   if (!isPostRegistered) {
     return res.status(400).json({ error: "Post não encontrado!" });
-  }
+  };
 
   const deletedPost = await Post.destroy({
     where: { id }
@@ -103,7 +103,7 @@ const handleDeletePost = async (req: Request, res: Response) => {
 
   if (!deletedPost) {
     return res.status(500).json({ error: "Falha ao deletar Post" });
-  }
+  };
 
   return res.status(200).json({ message: "Post deletado com sucesso!" });
 };

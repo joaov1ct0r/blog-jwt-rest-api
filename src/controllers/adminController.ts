@@ -46,36 +46,35 @@ const handleAdminEditUser = async (req: Request, res: Response) => {
   return res.status(200).json({ message: "Usuario editado com sucesso!" });
 };
 
-let handleAdminDeleteUser = async (req, res) => {
-  let { error } = validateHandleAdminDeleteUser(req.body);
+const handleAdminDeleteUser = async (req: Request, res: Response) => {
+  const { error } = validateHandleAdminDeleteUser(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { userEmail } = req.body;
+  const { userEmail } = req.body;
 
-  let isUserRegistered = await User.findOne({
+  const isUserRegistered = await User.findOne({
     where: { email: userEmail }
   });
 
-  if (!isUserRegistered)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
+  if (!isUserRegistered) {
+    return res.status(400).json({ error: "Usuario não encontrado!" });
+  };
 
-  try {
-    let deletedUser = await User.destroy({
-      where: { email: userEmail }
-    });
+  const deletedUser = await User.destroy({
+    where: { email: userEmail }
+  });
 
-    if (!deletedUser)
-      return res.status(500).json({ error: 'Falha ao deletar usuario!' });
-
-    let deletedPosts = await Post.destroy({
-      where: { userId: isUserRegistered.id }
-    });
-
-    res.status(200).json({ message: 'Usuario deletado com sucesso!' });
-  } catch (error) {
-    throw error;
+  if (!deletedUser) {
+    return res.status(500).json({ error: "Falha ao deletar usuario!" });
   }
+
+  // eslint-disable-next-line no-unused-vars
+  const deletedPosts = await Post.destroy({
+    where: { userId: isUserRegistered.id }
+  });
+
+  return res.status(200).json({ message: "Usuario deletado com sucesso!" });
 };
 
 let handleAdminDeletePost = async (req, res) => {

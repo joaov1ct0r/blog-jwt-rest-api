@@ -11,37 +11,34 @@ import {
   validateHandleOnePost
 } from "./validatePostData";
 
-let handleNewPost = async (req, res) => {
-  let { error } = validateHandleNewPost(req.body);
+const handleNewPost = async (req: Request, res: Response) => {
+  const { error } = validateHandleNewPost(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { title, description, content } = req.body;
+  const { title, description, content } = req.body;
 
-  let id = req.userId;
+  const id = req.userId;
 
-  let user = await User.findOne({
+  const user = await User.findOne({
     where: { id }
   });
 
-  try {
-    let newPost = await Post.create({
-      author: user.email,
-      title,
-      description,
-      content,
-      userId: user.id
-    });
+  const newPost = await Post.create({
+    author: user.email,
+    title,
+    description,
+    content,
+    userId: user.id
+  });
 
-    if (!newPost)
-      return res
-        .status(500)
-        .json({ error: 'Falha ao registrar novo Post' });
-
-    res.status(200).json({ newPost });
-  } catch (error) {
-    throw error;
+  if (!newPost) {
+    return res
+      .status(500)
+      .json({ error: "Falha ao registrar novo Post" });
   }
+
+  return res.status(200).json({ newPost });
 };
 
 let handleEditPost = async (req, res) => {

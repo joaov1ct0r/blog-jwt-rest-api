@@ -141,7 +141,7 @@ const handleAllUsers = async (req: Request, res: Response) => {
 
   if (!users) {
     return res.status(500).json({ error: "Falha ao obter dados!" });
-  }
+  };
 
   return res.status(200).json(users);
 };

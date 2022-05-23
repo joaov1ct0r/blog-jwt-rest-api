@@ -59,34 +59,32 @@ const handleUserLogin = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Usuario não encontrado!" });
   }
 
-  const matchingPasswords: boolean = bcrypt.compareSync(
+  const matchingPasswords = bcrypt.compareSync(
     password,
     isUserRegistered.password
   );
 
-  if (!matchingPasswords)
-    return res.status(400).json({ error: 'Falha na autenticação!' });
-
-  try {
-    let token = jwt.sign(
-      {
-        id: isUserRegistered.id
-      },
-      process.env.JWT_TOKEN_SECRET,
-      { expiresIn: 300 }
-    );
-
-    if (!token)
-      return res.status(500).json({ error: 'Falha ao gerar token!' });
-
-    res.header('Authorization', `Bearer ${token}`);
-
-    res.status(200).json({
-      message: 'Login realizado com sucesso!'
-    });
-  } catch (error) {
-    throw error;
+  if (!matchingPasswords) {
+    return res.status(400).json({ error: "Falha na autenticação!" });
   }
+
+  const token = jwt.sign(
+    {
+      id: isUserRegistered.id
+    },
+    String(process.env.JWT_TOKEN_SECRET),
+    { expiresIn: 300 }
+  );
+
+  if (!token) {
+    return res.status(500).json({ error: "Falha ao gerar token!" });
+  }
+
+  res.header("Authorization", `Bearer ${token}`);
+
+  res.status(200).json({
+    message: "Login realizado com sucesso!"
+  });
 };
 
 let handleEditUser = async (req, res) => {

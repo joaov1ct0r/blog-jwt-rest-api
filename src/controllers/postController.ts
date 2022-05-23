@@ -1,156 +1,156 @@
-import User from '../database/models/userModel.js';
+import User from "../database/models/userModel";
 
-import Post from '../database/models/postModel.js';
+import Post from '../database/models/postModel';
 
 import {
-    validateHandleNewPost,
-    validateHandleEditPost,
-    validateHandleDeletePost,
-    validateHandleOnePost
+  validateHandleNewPost,
+  validateHandleEditPost,
+  validateHandleDeletePost,
+  validateHandleOnePost
 } from './validatePostData.js';
 
 let handleNewPost = async (req, res) => {
-    let { error } = validateHandleNewPost(req.body);
+  let { error } = validateHandleNewPost(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { title, description, content } = req.body;
+  let { title, description, content } = req.body;
 
-    let id = req.userId;
+  let id = req.userId;
 
-    let user = await User.findOne({
-        where: { id }
+  let user = await User.findOne({
+    where: { id }
+  });
+
+  try {
+    let newPost = await Post.create({
+      author: user.email,
+      title,
+      description,
+      content,
+      userId: user.id
     });
 
-    try {
-        let newPost = await Post.create({
-            author: user.email,
-            title,
-            description,
-            content,
-            userId: user.id
-        });
+    if (!newPost)
+      return res
+        .status(500)
+        .json({ error: 'Falha ao registrar novo Post' });
 
-        if (!newPost)
-            return res
-                .status(500)
-                .json({ error: 'Falha ao registrar novo Post' });
-
-        res.status(200).json({ newPost });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ newPost });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleEditPost = async (req, res) => {
-    let { error } = validateHandleEditPost(req.body);
+  let { error } = validateHandleEditPost(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { title, description, content, id } = req.body;
+  let { title, description, content, id } = req.body;
 
-    let { userId } = req;
+  let { userId } = req;
 
-    let user = await User.findOne({
-        where: { id: userId }
-    });
+  let user = await User.findOne({
+    where: { id: userId }
+  });
 
-    let isPostRegistered = await Post.findOne({
+  let isPostRegistered = await Post.findOne({
+    where: { id }
+  });
+
+  if (!isPostRegistered)
+    return res.status(400).json({ error: 'Post não encontrado!' });
+
+  try {
+    let editedPost = await Post.update(
+      {
+        author: user.email,
+        title,
+        description,
+        content,
+        userId: user.id
+      },
+      {
         where: { id }
-    });
+      }
+    );
 
-    if (!isPostRegistered)
-        return res.status(400).json({ error: 'Post não encontrado!' });
+    if (!editedPost)
+      return res.status(500).json({ error: 'Falha ao editar Post' });
 
-    try {
-        let editedPost = await Post.update(
-            {
-                author: user.email,
-                title,
-                description,
-                content,
-                userId: user.id
-            },
-            {
-                where: { id }
-            }
-        );
-
-        if (!editedPost)
-            return res.status(500).json({ error: 'Falha ao editar Post' });
-
-        res.status(200).json({ message: 'Post editado com sucesso!' });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ message: 'Post editado com sucesso!' });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleDeletePost = async (req, res) => {
-    let { error } = validateHandleDeletePost(req.body);
+  let { error } = validateHandleDeletePost(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { id } = req.body;
+  let { id } = req.body;
 
-    let isPostRegistered = await Post.findOne({
-        where: { id }
+  let isPostRegistered = await Post.findOne({
+    where: { id }
+  });
+
+  if (!isPostRegistered)
+    return res.status(400).json({ error: 'Post não encontrado!' });
+
+  try {
+    let deletedPost = await Post.destroy({
+      where: { id }
     });
 
-    if (!isPostRegistered)
-        return res.status(400).json({ error: 'Post não encontrado!' });
+    if (!deletedPost)
+      return res.status(500).json({ error: 'Falha ao deletar Post' });
 
-    try {
-        let deletedPost = await Post.destroy({
-            where: { id }
-        });
-
-        if (!deletedPost)
-            return res.status(500).json({ error: 'Falha ao deletar Post' });
-
-        res.status(200).json({ message: 'Post deletado com sucesso!' });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ message: 'Post deletado com sucesso!' });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleAllPosts = async (req, res) => {
-    try {
-        let posts = await Post.findAll({});
+  try {
+    let posts = await Post.findAll({});
 
-        if (!posts)
-            return res.status(500).json({ error: 'Falha ao obter dados!' });
+    if (!posts)
+      return res.status(500).json({ error: 'Falha ao obter dados!' });
 
-        res.status(200).json({ posts });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ posts });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleOnePost = async (req, res) => {
-    let { error } = validateHandleOnePost(req.body);
+  let { error } = validateHandleOnePost(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { id } = req.body;
+  let { id } = req.body;
 
-    try {
-        let post = await Post.findOne({
-            where: { id }
-        });
+  try {
+    let post = await Post.findOne({
+      where: { id }
+    });
 
-        if (!post)
-            return res.status(400).json({ error: 'Post não encontrado!' });
+    if (!post)
+      return res.status(400).json({ error: 'Post não encontrado!' });
 
-        res.status(200).json({ post });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ post });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export {
-    handleNewPost,
-    handleEditPost,
-    handleDeletePost,
-    handleAllPosts,
-    handleOnePost
+  handleNewPost,
+  handleEditPost,
+  handleDeletePost,
+  handleAllPosts,
+  handleOnePost
 };

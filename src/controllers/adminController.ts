@@ -1,109 +1,109 @@
-import User from '../database/models/userModel.js';
+import User from "../database/models/userModel.js";
 
 import Post from '../database/models/postModel.js';
 
 import bcrypt from 'bcryptjs';
 
 import {
-    validateHandleAdminEditUser,
-    validateHandleAdminDeleteUser,
-    validateHandleAdminDeletePost
-} from '../controllers/validateAdminData.js';
+  validateHandleAdminEditUser,
+  validateHandleAdminDeleteUser,
+  validateHandleAdminDeletePost
+} from './validateAdminData.js';
 
 let handleAdminEditUser = async (req, res) => {
-    let { error } = validateHandleAdminEditUser(req.body);
+  let { error } = validateHandleAdminEditUser(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { userEmail, userNewEmail, userNewPassword } = req.body;
+  let { userEmail, userNewEmail, userNewPassword } = req.body;
 
-    let isUserRegistered = await User.findOne({
+  let isUserRegistered = await User.findOne({
+    where: { email: userEmail }
+  });
+
+  if (!isUserRegistered)
+    return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+  try {
+    let editedUser = await User.update(
+      {
+        email: userNewEmail,
+        password: bcrypt.hashSync(userNewPassword)
+      },
+      {
         where: { email: userEmail }
-    });
+      }
+    );
 
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
+    if (!editedUser)
+      return res
+        .status(500)
+        .json({ error: 'Falha ao atualizar usuario!' });
 
-    try {
-        let editedUser = await User.update(
-            {
-                email: userNewEmail,
-                password: bcrypt.hashSync(userNewPassword)
-            },
-            {
-                where: { email: userEmail }
-            }
-        );
-
-        if (!editedUser)
-            return res
-                .status(500)
-                .json({ error: 'Falha ao atualizar usuario!' });
-
-        res.status(200).json({ message: 'Usuario editado com sucesso!' });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ message: 'Usuario editado com sucesso!' });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleAdminDeleteUser = async (req, res) => {
-    let { error } = validateHandleAdminDeleteUser(req.body);
+  let { error } = validateHandleAdminDeleteUser(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { userEmail } = req.body;
+  let { userEmail } = req.body;
 
-    let isUserRegistered = await User.findOne({
-        where: { email: userEmail }
+  let isUserRegistered = await User.findOne({
+    where: { email: userEmail }
+  });
+
+  if (!isUserRegistered)
+    return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+  try {
+    let deletedUser = await User.destroy({
+      where: { email: userEmail }
     });
 
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
+    if (!deletedUser)
+      return res.status(500).json({ error: 'Falha ao deletar usuario!' });
 
-    try {
-        let deletedUser = await User.destroy({
-            where: { email: userEmail }
-        });
+    let deletedPosts = await Post.destroy({
+      where: { userId: isUserRegistered.id }
+    });
 
-        if (!deletedUser)
-            return res.status(500).json({ error: 'Falha ao deletar usuario!' });
-
-        let deletedPosts = await Post.destroy({
-            where: { userId: isUserRegistered.id }
-        });
-
-        res.status(200).json({ message: 'Usuario deletado com sucesso!' });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ message: 'Usuario deletado com sucesso!' });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let handleAdminDeletePost = async (req, res) => {
-    let { error } = validateHandleAdminDeletePost(req.body);
+  let { error } = validateHandleAdminDeletePost(req.body);
 
-    if (error) return res.status(400).json({ error });
+  if (error) return res.status(400).json({ error });
 
-    let { id } = req.body;
+  let { id } = req.body;
 
-    let isPostRegistered = await Post.findOne({
-        where: { id }
+  let isPostRegistered = await Post.findOne({
+    where: { id }
+  });
+
+  if (!isPostRegistered)
+    return res.status(400).json({ error: 'Post não encontrado!' });
+
+  try {
+    let deletedPost = await Post.destroy({
+      where: { id }
     });
 
-    if (!isPostRegistered)
-        return res.status(400).json({ error: 'Post não encontrado!' });
+    if (!deletedPost)
+      return res.status(500).json({ error: 'Falha ao deletar post!' });
 
-    try {
-        let deletedPost = await Post.destroy({
-            where: { id }
-        });
-
-        if (!deletedPost)
-            return res.status(500).json({ error: 'Falha ao deletar post!' });
-
-        res.status(200).json({ message: 'Post deletado com sucesso!' });
-    } catch (error) {
-        throw error;
-    }
+    res.status(200).json({ message: 'Post deletado com sucesso!' });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export { handleAdminEditUser, handleAdminDeleteUser, handleAdminDeletePost };

@@ -115,25 +115,23 @@ const handleEditUser = async (req: Request, res: Response) => {
   return res.status(204).json({ message: "Usuario editado com sucesso!" });
 };
 
-let handleDeleteUser = async (req, res) => {
-  let id = req.userId;
+const handleDeleteUser = async (req: Request, res: Response) => {
+  const id = req.userId;
 
-  try {
-    let deletedUser = await User.destroy({
-      where: { id }
-    });
+  const deletedUser = await User.destroy({
+    where: { id }
+  });
 
-    if (!deletedUser)
-      return res.status(500).json({ error: 'Falha ao deletar usuario!' });
-
-    let deletedPosts = await Post.destroy({
-      where: { userId: id }
-    });
-
-    res.status(204).json({ message: 'Usuario deletado com sucesso!' });
-  } catch (error) {
-    throw error;
+  if (!deletedUser) {
+    return res.status(500).json({ error: "Falha ao deletar usuario!" });
   }
+
+  // eslint-disable-next-line no-unused-vars
+  const deletedPosts = await Post.destroy({
+    where: { userId: id }
+  });
+
+  return res.status(204).json({ message: "Usuario deletado com sucesso!" });
 };
 
 let handleAllUsers = async (req, res) => {

@@ -15,7 +15,7 @@ import jwt from "jsonwebtoken";
 
 import { Request, Response } from "express";
 
-const handleNewUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
+const handleNewUser = async (req: Request, res: Response) => {
   const { error } = validateHandleNewUser(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -87,14 +87,14 @@ const handleUserLogin = async (req: Request, res: Response) => {
   });
 };
 
-let handleEditUser = async (req, res) => {
-  let { error } = validateHandleUserEdit(req.body);
+const handleEditUser = async (req: Request, res: Response) => {
+  const { error } = validateHandleUserEdit(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { email, password } = req.body;
+  const { email, password } = req.body;
 
-  let id = req.userId;
+  const id = req.userId;
 
   try {
     let editedUser = await User.update(

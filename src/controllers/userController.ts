@@ -110,7 +110,7 @@ const handleEditUser = async (req: Request, res: Response) => {
     return res
       .status(500)
       .json({ error: "Falha ao atualizar usuario!" });
-  }
+  };
 
   return res.status(204).json({ message: "Usuario editado com sucesso!" });
 };

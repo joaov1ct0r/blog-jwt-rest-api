@@ -60,7 +60,7 @@ const handleEditPost = async (req: Request, res: Response) => {
 
   if (!isPostRegistered) {
     return res.status(400).json({ error: "Post não encontrado!" });
-  }
+  };
 
   const editedPost = await Post.update(
     {
@@ -77,7 +77,7 @@ const handleEditPost = async (req: Request, res: Response) => {
 
   if (!editedPost) {
     return res.status(500).json({ error: "Falha ao editar Post" });
-  }
+  };
 
   return res.status(200).json({ message: "Post editado com sucesso!" });
 };

@@ -9,7 +9,7 @@ interface IUser extends Model {
   admin?: boolean;
 }
 
-const User = DB.define(
+const User = DB.define<IUser>(
   "users",
   {
     id: {

@@ -146,26 +146,23 @@ const handleAllUsers = async (req: Request, res: Response) => {
   return res.status(200).json(users);
 };
 
-let handleOneUser = async (req, res) => {
-  let { error } = validateHandleOneUser(req.body);
+const handleOneUser = async (req: Request, res: Response) => {
+  const { error } = validateHandleOneUser(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { email } = req.body;
+  const { email } = req.body;
 
-  try {
-    let isUserRegistered = await User.findOne({
-      include: Post,
-      where: { email }
-    });
+  const isUserRegistered = await User.findOne({
+    include: Post,
+    where: { email }
+  });
 
-    if (!isUserRegistered)
-      return res.status(500).json({ error: 'Usuario não encontrado!' });
-
-    res.status(200).json(isUserRegistered);
-  } catch (error) {
-    throw error;
+  if (!isUserRegistered) {
+    return res.status(500).json({ error: "Usuario não encontrado!" });
   }
+
+  return res.status(200).json(isUserRegistered);
 };
 
 export {

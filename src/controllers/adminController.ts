@@ -41,7 +41,7 @@ const handleAdminEditUser = async (req: Request, res: Response) => {
     return res
       .status(500)
       .json({ error: "Falha ao atualizar usuario!" });
-  }
+  };
 
   return res.status(200).json({ message: "Usuario editado com sucesso!" });
 };
@@ -67,7 +67,7 @@ const handleAdminDeleteUser = async (req: Request, res: Response) => {
 
   if (!deletedUser) {
     return res.status(500).json({ error: "Falha ao deletar usuario!" });
-  }
+  };
 
   // eslint-disable-next-line no-unused-vars
   const deletedPosts = await Post.destroy({

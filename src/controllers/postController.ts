@@ -82,32 +82,30 @@ const handleEditPost = async (req: Request, res: Response) => {
   return res.status(200).json({ message: "Post editado com sucesso!" });
 };
 
-let handleDeletePost = async (req, res) => {
-  let { error } = validateHandleDeletePost(req.body);
+const handleDeletePost = async (req: Request, res: Response) => {
+  const { error } = validateHandleDeletePost(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { id } = req.body;
+  const { id } = req.body;
 
-  let isPostRegistered = await Post.findOne({
+  const isPostRegistered = await Post.findOne({
     where: { id }
   });
 
-  if (!isPostRegistered)
-    return res.status(400).json({ error: 'Post não encontrado!' });
-
-  try {
-    let deletedPost = await Post.destroy({
-      where: { id }
-    });
-
-    if (!deletedPost)
-      return res.status(500).json({ error: 'Falha ao deletar Post' });
-
-    res.status(200).json({ message: 'Post deletado com sucesso!' });
-  } catch (error) {
-    throw error;
+  if (!isPostRegistered) {
+    return res.status(400).json({ error: "Post não encontrado!" });
   }
+
+  const deletedPost = await Post.destroy({
+    where: { id }
+  });
+
+  if (!deletedPost) {
+    return res.status(500).json({ error: "Falha ao deletar Post" });
+  }
+
+  return res.status(200).json({ message: "Post deletado com sucesso!" });
 };
 
 let handleAllPosts = async (req, res) => {

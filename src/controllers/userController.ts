@@ -15,6 +15,8 @@ import jwt from "jsonwebtoken";
 
 import { Request, Response } from "express";
 
+import IReq from "../types/requestInterface";
+
 const handleNewUser = async (req: Request, res: Response) => {
   const { error } = validateHandleNewUser(req.body);
 
@@ -87,7 +89,7 @@ const handleUserLogin = async (req: Request, res: Response) => {
   });
 };
 
-const handleEditUser = async (req: Request, res: Response) => {
+const handleEditUser = async (req: IReq, res: Response) => {
   const { error } = validateHandleUserEdit(req.body);
 
   if (error) return res.status(400).json({ error });

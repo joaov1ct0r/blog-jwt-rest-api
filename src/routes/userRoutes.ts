@@ -9,7 +9,7 @@ import {
   handleOneUser
 } from "../controllers/userController";
 
-import auth from "../middlewares/auth.js";
+import auth from "../middlewares/auth";
 
 const userRouter: express.Router = express.Router();
 

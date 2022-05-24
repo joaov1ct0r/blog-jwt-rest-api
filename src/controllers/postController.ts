@@ -43,7 +43,7 @@ const handleNewPost = async (req: IReq, res: Response) => {
   return res.status(200).json({ newPost });
 };
 
-const handleEditPost = async (req: Request, res: Response) => {
+const handleEditPost = async (req: IReq, res: Response) => {
   const { error } = validateHandleEditPost(req.body);
 
   if (error) return res.status(400).json({ error });

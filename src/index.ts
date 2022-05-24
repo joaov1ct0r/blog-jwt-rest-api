@@ -10,7 +10,7 @@ import userRouter from "./routes/userRoutes";
 
 import adminRouter from "./routes/adminRoutes";
 
-const app: express.Express = express();
+const app = express();
 
 app.use(cors());
 
@@ -24,6 +24,6 @@ app.use("/api/post", postRouter);
 
 app.use("/api/admin", adminRouter);
 
-app.listen(process.env.SERVER_PORT, (): void => {
+app.listen(process.env.SERVER_PORT, () => {
   console.log("Server running!");
 });

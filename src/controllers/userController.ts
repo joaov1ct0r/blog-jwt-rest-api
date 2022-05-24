@@ -117,7 +117,7 @@ const handleEditUser = async (req: IReq, res: Response) => {
   return res.status(204).json({ message: "Usuario editado com sucesso!" });
 };
 
-const handleDeleteUser = async (req: Request, res: Response) => {
+const handleDeleteUser = async (req: IReq, res: Response) => {
   const id = req.userId;
 
   const deletedUser = await User.destroy({

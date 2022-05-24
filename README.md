@@ -2,41 +2,6 @@
 
 <h1>EM DESENVOLVIMENTO</h1>
 
-<h2>Requisitos</h2>
-
-<ul>
-<li>NodeJS</li>
-  <p><code>sudo apt install nodejs</code></p>
-  <br>
-  <li>NPM</li>
-  <p><code>sudo apt install npm</code></p>
-  <br>
-  <li>Express</li>
-  <p><code>npm install express</code></p>
-  <br>
-   <li>sequelize</li>
-  <p><code>npm install sequelize</code></p>
-  <br>
-   <li>mysql2</li>
-  <p><code>npm install --save mysql2</code></p>
-  <br>
-  <li>bcrypt</li>
-  <p><code>npm install bcryptjs</code></p>
-  <br>
-  <li>dotenv</li>
-  <p><code>npm install dotenv</code></p>
-  <br>
-  <li>JWT</li>
-  <p><code>npm install jsonwebtoken</code></p>
-  <br>
-  <li>cors</li>
-  <p><code>npm install cors</code></p>
-  <br>
-  <li>@hapi/joi</li>
-  <p><code>npm install @hapi/joi</code></p>
-  <br>
-</ul>
-
 <h2>Sobre</h2>
 
 <p>Rest API de Blog com cadastro e login do usuario e cadastro e apresentação de Posts, com rotas para admin.</p>

@@ -6,7 +6,7 @@ import {
   handleDeletePost,
   handleAllPosts,
   handleOnePost
-} from "../controllers/postController.js";
+} from "../controllers/postController";
 
 import auth from "../middlewares/auth.js";
 

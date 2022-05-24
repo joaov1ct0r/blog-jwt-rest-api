@@ -6,7 +6,7 @@ import {
   handleAdminDeletePost
 } from "../controllers/adminController";
 
-import auth from "../middlewares/auth.js";
+import auth from "../middlewares/auth";
 
 import admin from "../middlewares/admin.js";
 

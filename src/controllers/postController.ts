@@ -9,7 +9,7 @@ import {
   validateHandleEditPost,
   validateHandleDeletePost,
   validateHandleOnePost
-} from "./validatePostData";
+} from "../validators/validatePostData";
 
 const handleNewPost = async (req: Request, res: Response) => {
   const { error } = validateHandleNewPost(req.body);

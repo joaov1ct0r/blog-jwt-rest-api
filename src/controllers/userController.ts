@@ -15,6 +15,8 @@ import jwt from "jsonwebtoken";
 
 import { Request, Response } from "express";
 
+import IReq from "../types/requestInterface";
+
 const handleNewUser = async (req: Request, res: Response) => {
   const { error } = validateHandleNewUser(req.body);
 

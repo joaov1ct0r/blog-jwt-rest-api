@@ -4,7 +4,7 @@ import {
   handleAdminEditUser,
   handleAdminDeleteUser,
   handleAdminDeletePost
-} from "../controllers/adminController.js";
+} from "../controllers/adminController";
 
 import auth from "../middlewares/auth.js";
 

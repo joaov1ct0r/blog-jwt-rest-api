@@ -1,5 +1,7 @@
 import User from "../database/models/userModel";
 
+import { Request, Response, NextFunction } from "express";
+
 export default async function (req, res, next) {
   let id = req.userId;
 

@@ -10,7 +10,7 @@ import {
   validateHandleAdminEditUser,
   validateHandleAdminDeleteUser,
   validateHandleAdminDeletePost
-} from "./validateAdminData";
+} from "../validators/validateAdminData";
 
 const handleAdminEditUser = async (req: Request, res: Response) => {
   const { error } = validateHandleAdminEditUser(req.body);

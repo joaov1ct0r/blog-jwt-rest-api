@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 
+import IJwt from "../types/jsonInterface";
+
 import { Request, Response, NextFunction } from "express";
 
 export default function (req: Request, res: Response, next: NextFunction) {
@@ -7,7 +9,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
 
   if (!token) return res.status(401).json({ error: "Token não encontrado!" });
 
-  const verifiedToken = jwt.verify(token, String(process.env.JWT_TOKEN_SECRET));
+  const verifiedToken = jwt.verify(token, process.env.JWT_TOKEN_SECRET as string) as IJwt;
 
   if (!verifiedToken) {
     return res.status(400).json({ error: "Falha na autenticação!" });

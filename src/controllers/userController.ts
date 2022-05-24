@@ -5,8 +5,6 @@ import {
   validateHandleOneUser
 } from "../validators/validateUserData";
 
-import IJwt from "../types/jsonInterface";
-
 import User from "../database/models/userModel";
 
 import Post from "../database/models/postModel";

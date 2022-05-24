@@ -3,7 +3,7 @@ import {
   validateHandleUserLogin,
   validateHandleUserEdit,
   validateHandleOneUser
-} from "./validateUserData";
+} from "../validators/validateUserData";
 
 import User from "../database/models/userModel";
 

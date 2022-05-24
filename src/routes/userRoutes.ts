@@ -7,7 +7,7 @@ import {
   handleDeleteUser,
   handleAllUsers,
   handleOneUser
-} from "../controllers/userController.js";
+} from "../controllers/userController";
 
 import auth from "../middlewares/auth.js";
 

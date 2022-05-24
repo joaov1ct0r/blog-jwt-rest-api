@@ -1,6 +1,8 @@
 import User from "../database/models/userModel";
 
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
+
+import IReq from "../types/requestInterface";
 
 export default async function (req: Request, res: Response, next: NextFunction) {
   const id = req.userId;

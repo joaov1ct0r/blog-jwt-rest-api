@@ -8,7 +8,7 @@ import {
 
 import auth from "../middlewares/auth";
 
-import admin from "../middlewares/admin.js";
+import admin from "../middlewares/admin";
 
 const adminRouter: express.Router = express.Router();
 

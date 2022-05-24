@@ -2,7 +2,9 @@ import jwt from "jsonwebtoken";
 
 import IJwt from "../types/jsonInterface";
 
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
+
+import IReq from "../types/requestInterface";
 
 export default function (req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization!.split(" ")[1];

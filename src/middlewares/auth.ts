@@ -14,5 +14,6 @@ export default function (req: Request, res: Response, next: NextFunction) {
   }
 
   req.userId = verifiedToken.id;
+
   next();
 }

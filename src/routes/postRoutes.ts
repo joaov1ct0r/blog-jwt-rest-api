@@ -8,7 +8,7 @@ import {
   handleOnePost
 } from "../controllers/postController";
 
-import auth from "../middlewares/auth.js";
+import auth from "../middlewares/auth";
 
 const postRouter: express.Router = express.Router();
 

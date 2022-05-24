@@ -1,23 +1,23 @@
-import User from '../database/models/userModel.js';
+import User from "../database/models/userModel";
 
 export default async function (req, res, next) {
-    let id = req.userId;
+  let id = req.userId;
 
-    let isUserRegistered = await User.findOne({
-        where: { id }
-    });
+  let isUserRegistered = await User.findOne({
+    where: { id }
+  });
 
-    if (!isUserRegistered)
-        return res.status(400).json({ error: 'Usuario não encontrado!' });
+  if (!isUserRegistered)
+    return res.status(400).json({ error: 'Usuario não encontrado!' });
 
-    try {
-        let isUserAdmin = isUserRegistered.admin === true ? true : false;
+  try {
+    let isUserAdmin = isUserRegistered.admin === true ? true : false;
 
-        if (!isUserAdmin)
-            return res.status(401).json({ error: 'Não autorizado!' });
+    if (!isUserAdmin)
+      return res.status(401).json({ error: 'Não autorizado!' });
 
-        next();
-    } catch (error) {
-        throw error;
-    }
+    next();
+  } catch (error) {
+    throw error;
+  }
 }

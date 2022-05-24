@@ -6,7 +6,7 @@ import { Response, NextFunction } from "express";
 
 import IReq from "../types/requestInterface";
 
-export default function (req: Request, res: Response, next: NextFunction) {
+export default function (req: IReq, res: Response, next: NextFunction) {
   const token = req.headers.authorization!.split(" ")[1];
 
   if (!token) return res.status(401).json({ error: "Token não encontrado!" });

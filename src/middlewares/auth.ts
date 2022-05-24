@@ -1,19 +1,18 @@
 import jwt from "jsonwebtoken";
 
-export default function (req, res, next) {
-  let token = req.headers['authorization'].split(' ')[1];
+import { Request, Response, NextFunction } from "express";
 
-  if (!token) return res.status(401).json({ error: 'Token não encontrado!' });
+export default function (req: Request, res: Response, next: NextFunction) {
+  const token = req.headers.authorization!.split(" ")[1];
 
-  try {
-    let verifiedToken = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
+  if (!token) return res.status(401).json({ error: "Token não encontrado!" });
 
-    if (!verifiedToken)
-      return res.status(400).json({ error: 'Falha na autenticação!' });
+  const verifiedToken = jwt.verify(token, String(process.env.JWT_TOKEN_SECRET));
 
-    req.userId = verifiedToken.id;
-    next();
-  } catch (error) {
-    throw error;
+  if (!verifiedToken) {
+    return res.status(400).json({ error: "Falha na autenticação!" });
   }
+
+  req.userId = verifiedToken.id;
+  next();
 }

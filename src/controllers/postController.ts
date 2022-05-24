@@ -13,7 +13,7 @@ import {
   validateHandleOnePost
 } from "../validators/validatePostData";
 
-const handleNewPost = async (req: Request, res: Response) => {
+const handleNewPost = async (req: IReq, res: Response) => {
   const { error } = validateHandleNewPost(req.body);
 
   if (error) return res.status(400).json({ error });

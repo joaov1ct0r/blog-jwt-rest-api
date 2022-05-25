@@ -40,7 +40,7 @@ const handleNewPost = async (req: IReq, res: Response) => {
       .json({ error: "Falha ao registrar novo Post" });
   };
 
-  return res.status(201).json(newPost);
+  return res.status(201).json({ newPost });
 };
 
 const handleEditPost = async (req: IReq, res: Response) => {
@@ -117,7 +117,7 @@ const handleAllPosts = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "Falha ao obter dados!" });
   };
 
-  return res.status(200).json(posts);
+  return res.status(200).json({ posts });
 };
 
 const handleOnePost = async (req: Request, res: Response) => {
@@ -135,7 +135,7 @@ const handleOnePost = async (req: Request, res: Response) => {
     return res.status(404).json({ error: "Post não encontrado!" });
   };
 
-  return res.status(200).json(post);
+  return res.status(200).json({ post });
 };
 
 export {

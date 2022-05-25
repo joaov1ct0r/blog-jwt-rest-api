@@ -12,7 +12,7 @@ export default async function (req: IReq, res: Response, next: NextFunction) {
   });
 
   if (!isUserRegistered) {
-    return res.status(400).json({ error: "Usuario não encontrado!" });
+    return res.status(404).json({ error: "Usuario não encontrado!" });
   }
 
   const isUserAdmin = isUserRegistered.admin === true;

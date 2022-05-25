@@ -24,7 +24,7 @@ const handleAdminEditUser = async (req: Request, res: Response) => {
   });
 
   if (!isUserRegistered) {
-    return res.status(400).json({ error: "Usuario não encontrado!" });
+    return res.status(404).json({ error: "Usuario não encontrado!" });
   };
 
   const editedUser = await User.update(
@@ -43,7 +43,7 @@ const handleAdminEditUser = async (req: Request, res: Response) => {
       .json({ error: "Falha ao atualizar usuario!" });
   };
 
-  return res.status(200).json({ message: "Usuario editado com sucesso!" });
+  return res.status(204).send();
 };
 
 const handleAdminDeleteUser = async (req: Request, res: Response) => {

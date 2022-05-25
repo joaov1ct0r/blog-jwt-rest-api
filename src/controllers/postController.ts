@@ -132,10 +132,10 @@ const handleOnePost = async (req: Request, res: Response) => {
   });
 
   if (!post) {
-    return res.status(400).json({ error: "Post não encontrado!" });
+    return res.status(404).json({ error: "Post não encontrado!" });
   };
 
-  return res.status(200).json({ post });
+  return res.status(200).json(post);
 };
 
 export {

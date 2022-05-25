@@ -58,7 +58,7 @@ const handleAdminDeleteUser = async (req: Request, res: Response) => {
   });
 
   if (!isUserRegistered) {
-    return res.status(400).json({ error: "Usuario não encontrado!" });
+    return res.status(404).json({ error: "Usuario não encontrado!" });
   };
 
   const deletedUser = await User.destroy({
@@ -74,7 +74,7 @@ const handleAdminDeleteUser = async (req: Request, res: Response) => {
     where: { userId: isUserRegistered.id }
   });
 
-  return res.status(200).json({ message: "Usuario deletado com sucesso!" });
+  return res.status(204).send();
 };
 
 const handleAdminDeletePost = async (req: Request, res: Response) => {

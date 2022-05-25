@@ -61,7 +61,7 @@ const handleEditPost = async (req: IReq, res: Response) => {
   });
 
   if (!isPostRegistered) {
-    return res.status(400).json({ error: "Post não encontrado!" });
+    return res.status(404).json({ error: "Post não encontrado!" });
   };
 
   const editedPost = await Post.update(

@@ -40,7 +40,7 @@ const handleNewPost = async (req: IReq, res: Response) => {
       .json({ error: "Falha ao registrar novo Post" });
   };
 
-  return res.status(200).json({ newPost });
+  return res.status(201).json(newPost);
 };
 
 const handleEditPost = async (req: IReq, res: Response) => {

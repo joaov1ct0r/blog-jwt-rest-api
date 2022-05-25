@@ -81,7 +81,7 @@ const handleEditPost = async (req: IReq, res: Response) => {
     return res.status(500).json({ error: "Falha ao editar Post" });
   };
 
-  return res.status(200).json({ message: "Post editado com sucesso!" });
+  return res.status(204).send();
 };
 
 const handleDeletePost = async (req: Request, res: Response) => {

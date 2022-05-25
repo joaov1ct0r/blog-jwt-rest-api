@@ -43,7 +43,7 @@ const handleNewUser = async (req: Request, res: Response) => {
       .json({ error: "Falha ao cadastrar novo usuario!" });
   };
 
-  return res.status(201).json(newUser);
+  return res.status(201).json({ newUser });
 };
 
 const handleUserLogin = async (req: Request, res: Response) => {
@@ -58,7 +58,7 @@ const handleUserLogin = async (req: Request, res: Response) => {
   });
 
   if (!isUserRegistered) {
-    return res.status(400).json({ error: "Usuario não encontrado!" });
+    return res.status(404).json({ error: "Usuario não encontrado!" });
   };
 
   const matchingPasswords = bcrypt.compareSync(
@@ -67,7 +67,7 @@ const handleUserLogin = async (req: Request, res: Response) => {
   );
 
   if (!matchingPasswords) {
-    return res.status(400).json({ error: "Falha na autenticação!" });
+    return res.status(401).json({ error: "Falha na autenticação!" });
   };
 
   const token = jwt.sign(
@@ -114,7 +114,7 @@ const handleEditUser = async (req: IReq, res: Response) => {
       .json({ error: "Falha ao atualizar usuario!" });
   };
 
-  return res.status(204).json({ message: "Usuario editado com sucesso!" });
+  return res.status(204).send();
 };
 
 const handleDeleteUser = async (req: IReq, res: Response) => {
@@ -133,7 +133,7 @@ const handleDeleteUser = async (req: IReq, res: Response) => {
     where: { userId: id }
   });
 
-  return res.status(204).json({ message: "Usuario deletado com sucesso!" });
+  return res.status(204).send();
 };
 
 const handleAllUsers = async (req: Request, res: Response) => {
@@ -145,7 +145,7 @@ const handleAllUsers = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "Falha ao obter dados!" });
   };
 
-  return res.status(200).json(users);
+  return res.status(200).json({ users });
 };
 
 const handleOneUser = async (req: Request, res: Response) => {
@@ -164,7 +164,7 @@ const handleOneUser = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "Usuario não encontrado!" });
   };
 
-  return res.status(200).json(isUserRegistered);
+  return res.status(200).json({ isUserRegistered });
 };
 
 export {

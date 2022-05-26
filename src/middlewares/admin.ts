@@ -13,13 +13,13 @@ export default async function (req: IReq, res: Response, next: NextFunction) {
     where: { id }
   });
 
-  if (!isUserRegistered) {
+  if (isUserRegistered === null) {
     return res.status(404).json({ error: "Usuario não encontrado!" });
   }
 
   const isUserAdmin: boolean = isUserRegistered.admin === true;
 
-  if (!isUserAdmin) {
+  if (isUserAdmin === false) {
     return res.status(401).json({ error: "Não autorizado!" });
   }
 

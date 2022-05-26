@@ -5,7 +5,7 @@ import { Response, NextFunction } from "express";
 import IReq from "../types/requestInterface";
 
 export default async function (req: IReq, res: Response, next: NextFunction) {
-  const id = req.userId;
+  const id: string | undefined = req.userId;
 
   const isUserRegistered = await User.findOne({
     where: { id }

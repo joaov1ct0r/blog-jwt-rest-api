@@ -2,9 +2,9 @@ import DB from "../config/database";
 
 import User from "../models/userModel";
 
-import { DataTypes } from "sequelize";
+import { DataTypes, ModelStatic, Model } from "sequelize";
 
-const Post = DB.define(
+const Post: ModelStatic<Model<any, any>> = DB.define(
   "posts",
   {
     id: {

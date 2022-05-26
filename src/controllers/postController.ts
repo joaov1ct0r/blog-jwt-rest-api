@@ -140,7 +140,7 @@ const handleAllPosts = async (req: Request, res: Response): Promise<Response<any
   };
 };
 
-const handleOnePost = async (req: Request, res: Response) => {
+const handleOnePost = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleOnePost(req.body);
 
   if (error) return res.status(400).json({ error });

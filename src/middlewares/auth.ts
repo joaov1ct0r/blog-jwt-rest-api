@@ -9,7 +9,7 @@ import IReq from "../types/requestInterface";
 export default function (req: IReq, res: Response, next: NextFunction) {
   const token: string = req.headers.authorization!.split(" ")[1];
 
-  if (!token) return res.status(400).json({ error: "Token não encontrado!" });
+  if (token.length === 0) return res.status(400).json({ error: "Token não encontrado!" });
 
   const verifiedToken: IJwt = jwt.verify(token, process.env.JWT_TOKEN_SECRET as string) as IJwt;
 

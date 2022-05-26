@@ -4,7 +4,7 @@ import User from "../models/userModel";
 
 import { DataTypes, ModelStatic, Model } from "sequelize";
 
-const Post: ModelStatic<Model<any, any>> = DB.define(
+const Post: ModelStatic<Model> = DB.define(
   "posts",
   {
     id: {

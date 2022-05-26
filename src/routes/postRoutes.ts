@@ -10,7 +10,7 @@ import {
 
 import auth from "../middlewares/auth";
 
-const postRouter = express.Router();
+const postRouter: express.Router = express.Router();
 
 postRouter.post("/register", auth, handleNewPost);
 

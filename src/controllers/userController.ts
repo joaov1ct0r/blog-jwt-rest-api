@@ -17,154 +17,172 @@ import { Request, Response } from "express";
 
 import IReq from "../types/requestInterface";
 
-const handleNewUser = async (req: Request, res: Response) => {
+import IUser from "../types/userInterface";
+
+const handleNewUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleNewUser(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  const { email, password } = req.body;
+  const email: string = req.body.email;
 
-  const isUserRegistered = await User.findOne({
-    where: { email }
-  });
+  const password: string = req.body.password;
 
-  if (isUserRegistered) {
-    return res.status(400).json({ error: "Usuario já cadastrado!" });
+  try {
+    const isUserRegistered: IUser | null = await User.findOne({
+      where: { email }
+    });
+
+    if (isUserRegistered !== null) {
+      return res.status(400).json({ error: "Usuario já cadastrado!" });
+    };
+
+    const newUser: IUser = await User.create({
+      email,
+      password: bcrypt.hashSync(password)
+    });
+
+    return res.status(201).json({ newUser });
+  } catch (err) {
+    return res.status(500).json({ err });
   };
-
-  const newUser = await User.create({
-    email,
-    password: bcrypt.hashSync(password)
-  });
-
-  if (!newUser) {
-    return res
-      .status(500)
-      .json({ error: "Falha ao cadastrar novo usuario!" });
-  };
-
-  return res.status(201).json({ newUser });
 };
 
-const handleUserLogin = async (req: Request, res: Response) => {
+const handleUserLogin = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleUserLogin(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  const { email, password } = req.body;
+  const email: string = req.body.email;
 
-  const isUserRegistered = await User.findOne({
-    where: { email }
-  });
+  const password: string = req.body.password;
 
-  if (!isUserRegistered) {
-    return res.status(404).json({ error: "Usuario não encontrado!" });
-  };
+  try {
+    const isUserRegistered: IUser | null = await User.findOne({
+      where: { email }
+    });
 
-  const matchingPasswords = bcrypt.compareSync(
-    password,
-    isUserRegistered.password
-  );
+    if (isUserRegistered === null) {
+      return res.status(404).json({ error: "Usuario não encontrado!" });
+    };
 
-  if (!matchingPasswords) {
-    return res.status(401).json({ error: "Falha na autenticação!" });
-  };
+    const matchingPasswords: boolean = bcrypt.compareSync(
+      password,
+      isUserRegistered.password
+    );
 
-  const token = jwt.sign(
-    {
-      id: isUserRegistered.id
-    },
-    process.env.JWT_TOKEN_SECRET as string,
-    { expiresIn: 300 }
-  );
+    if (matchingPasswords === false) {
+      return res.status(401).json({ error: "Falha na autenticação!" });
+    };
 
-  if (!token) {
-    return res.status(500).json({ error: "Falha ao gerar token!" });
-  };
+    const token: string = jwt.sign(
+      {
+        id: isUserRegistered.id
+      },
+      process.env.JWT_TOKEN_SECRET as string,
+      { expiresIn: 300 }
+    );
 
-  res.header("Authorization", `Bearer ${token}`);
+    res.header("Authorization", `Bearer ${token}`);
 
-  return res.status(200).json({
-    message: "Login realizado com sucesso!"
-  });
+    return res.status(200).json({
+      message: "Login realizado com sucesso!"
+    });
+  } catch (err) {
+    return res.status(500).json({ err });
+  }
 };
 
-const handleEditUser = async (req: IReq, res: Response) => {
+const handleEditUser = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleUserEdit(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  const { email, password } = req.body;
+  const email: string = req.body.email;
 
-  const id = req.userId;
+  const password: string = req.body.password;
 
-  const editedUser = await User.update(
-    {
-      email,
-      password: bcrypt.hashSync(password)
-    },
-    {
-      where: { id }
-    }
-  );
+  const id: string | undefined = req.userId;
 
-  if (!editedUser) {
-    return res
-      .status(500)
-      .json({ error: "Falha ao atualizar usuario!" });
+  try {
+    const editedUser: [affectedCount: number] = await User.update(
+      {
+        email,
+        password: bcrypt.hashSync(password)
+      },
+      {
+        where: { id }
+      }
+    );
+
+    if (editedUser[0] < 0) {
+      return res
+        .status(500)
+        .json({ error: "Falha ao atualizar usuario!" });
+    };
+
+    return res.status(204).send();
+  } catch (err) {
+    return res.status(500).json({ err });
   };
-
-  return res.status(204).send();
 };
 
-const handleDeleteUser = async (req: IReq, res: Response) => {
-  const id = req.userId;
+const handleDeleteUser = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
+  const id: string | undefined = req.userId;
 
-  const deletedUser = await User.destroy({
-    where: { id }
-  });
+  try {
+    const deletedUser: number = await User.destroy({
+      where: { id }
+    });
 
-  if (!deletedUser) {
-    return res.status(500).json({ error: "Falha ao deletar usuario!" });
+    if (deletedUser === 0) {
+      return res.status(500).json({ error: "Falha ao deletar usuario!" });
+    };
+
+    // eslint-disable-next-line no-unused-vars
+    const deletedPosts: number = await Post.destroy({
+      where: { userId: id }
+    });
+
+    return res.status(204).send();
+  } catch (err) {
+    return res.status(500).json({ err });
   };
-
-  // eslint-disable-next-line no-unused-vars
-  const deletedPosts = await Post.destroy({
-    where: { userId: id }
-  });
-
-  return res.status(204).send();
 };
 
 const handleAllUsers = async (req: Request, res: Response) => {
-  const users = await User.findAll({
-    include: Post
-  });
+  try {
+    const users: IUser[] = await User.findAll({
+      include: Post
+    });
 
-  if (!users) {
-    return res.status(500).json({ error: "Falha ao obter dados!" });
+    return res.status(200).json({ users });
+  } catch (err) {
+    return res.status(500).json({ err });
   };
-
-  return res.status(200).json({ users });
 };
 
-const handleOneUser = async (req: Request, res: Response) => {
+const handleOneUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleOneUser(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  const { email } = req.body;
+  const email: string = req.body.email;
 
-  const isUserRegistered = await User.findOne({
-    include: Post,
-    where: { email }
-  });
+  try {
+    const isUserRegistered: IUser | null = await User.findOne({
+      include: Post,
+      where: { email }
+    });
 
-  if (!isUserRegistered) {
-    return res.status(500).json({ error: "Usuario não encontrado!" });
+    if (isUserRegistered === null) {
+      return res.status(404).json({ error: "Usuario não encontrado!" });
+    };
+
+    return res.status(200).json({ isUserRegistered });
+  } catch (err) {
+    return res.status(500).json({ err });
   };
-
-  return res.status(200).json({ isUserRegistered });
 };
 
 export {

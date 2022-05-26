@@ -13,34 +13,40 @@ import {
   validateHandleOnePost
 } from "../validators/validatePostData";
 
-const handleNewPost = async (req: IReq, res: Response) => {
+import IUser from "../types/userInterface";
+
+import { Model } from "sequelize";
+
+const handleNewPost = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleNewPost(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  const { title, description, content } = req.body;
+  const title: string = req.body.title;
 
-  const id = req.userId;
+  const description: string = req.body.description;
 
-  const user = await User.findOne({
-    where: { id }
-  });
+  const content: string = req.body.content;
 
-  const newPost = await Post.create({
-    author: user!.email,
-    title,
-    description,
-    content,
-    userId: user!.id
-  });
+  const id: string | undefined = req.userId;
 
-  if (!newPost) {
-    return res
-      .status(500)
-      .json({ error: "Falha ao registrar novo Post" });
-  };
+  try {
+    const user: IUser | null = await User.findOne({
+      where: { id }
+    });
 
-  return res.status(201).json({ newPost });
+    const newPost: Model<any, any> = await Post.create({
+      author: user!.email,
+      title,
+      description,
+      content,
+      userId: user!.id
+    });
+
+    return res.status(201).json({ newPost });
+  } catch (err) {
+    return res.status(500).json({ err });
+  }
 };
 
 const handleEditPost = async (req: IReq, res: Response) => {

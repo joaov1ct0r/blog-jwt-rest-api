@@ -11,7 +11,7 @@ import {
 
 import auth from "../middlewares/auth";
 
-const userRouter = express.Router();
+const userRouter: express.Router = express.Router();
 
 userRouter.post("/register", handleNewUser);
 

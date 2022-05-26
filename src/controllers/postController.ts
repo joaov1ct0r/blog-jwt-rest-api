@@ -44,86 +44,100 @@ const handleNewPost = async (req: IReq, res: Response): Promise<Response<any, Re
     });
 
     return res.status(201).json({ newPost });
-  } catch (err) {
+  } catch (err: unknown) {
     return res.status(500).json({ err });
   }
 };
 
-const handleEditPost = async (req: IReq, res: Response) => {
+const handleEditPost = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleEditPost(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  const { title, description, content, id } = req.body;
+  const title: string = req.body.title;
 
-  const { userId } = req;
+  const description: string = req.body.description;
 
-  const user = await User.findOne({
-    where: { id: userId }
-  });
+  const content: string = req.body.content;
 
-  const isPostRegistered = await Post.findOne({
-    where: { id }
-  });
+  const id: string = req.body.id;
 
-  if (!isPostRegistered) {
-    return res.status(404).json({ error: "Post não encontrado!" });
-  };
+  const userId: string | undefined = req.userId;
 
-  const editedPost = await Post.update(
-    {
-      author: user!.email,
-      title,
-      description,
-      content,
-      userId: user!.id
-    },
-    {
+  try {
+    const user: IUser | null = await User.findOne({
+      where: { id: userId }
+    });
+
+    const isPostRegistered: Model<any, any> | null = await Post.findOne({
       where: { id }
-    }
-  );
+    });
 
-  if (!editedPost) {
-    return res.status(500).json({ error: "Falha ao editar Post" });
+    if (isPostRegistered === null) {
+      return res.status(404).json({ error: "Post não encontrado!" });
+    };
+
+    const editedPost: [affectedCount: number] = await Post.update(
+      {
+        author: user!.email,
+        title,
+        description,
+        content,
+        userId: user!.id
+      },
+      {
+        where: { id }
+      }
+    );
+
+    if (editedPost[0] === 0) {
+      return res.status(500).json({ error: "Falha ao editar Post" });
+    };
+
+    return res.status(204).send();
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
   };
-
-  return res.status(204).send();
 };
 
-const handleDeletePost = async (req: Request, res: Response) => {
+const handleDeletePost = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleDeletePost(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  const { id } = req.body;
+  const id: string = req.body.id;
 
-  const isPostRegistered = await Post.findOne({
-    where: { id }
-  });
+  try {
+    const isPostRegistered = await Post.findOne({
+      where: { id }
+    });
 
-  if (!isPostRegistered) {
-    return res.status(404).json({ error: "Post não encontrado!" });
-  };
+    if (isPostRegistered === null) {
+      return res.status(404).json({ error: "Post não encontrado!" });
+    };
 
-  const deletedPost = await Post.destroy({
-    where: { id }
-  });
+    const deletedPost = await Post.destroy({
+      where: { id }
+    });
 
-  if (!deletedPost) {
-    return res.status(500).json({ error: "Falha ao deletar Post" });
-  };
+    if (deletedPost === 0) {
+      return res.status(500).json({ error: "Falha ao deletar Post" });
+    };
 
-  return res.status(204).send();
+    return res.status(204).send();
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  }
 };
 
-const handleAllPosts = async (req: Request, res: Response) => {
-  const posts = await Post.findAll({});
+const handleAllPosts = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
+  try {
+    const posts: Model<any, any>[] = await Post.findAll({});
 
-  if (!posts) {
-    return res.status(500).json({ error: "Falha ao obter dados!" });
+    return res.status(200).json({ posts });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
   };
-
-  return res.status(200).json({ posts });
 };
 
 const handleOnePost = async (req: Request, res: Response) => {
@@ -131,17 +145,21 @@ const handleOnePost = async (req: Request, res: Response) => {
 
   if (error) return res.status(400).json({ error });
 
-  const { id } = req.body;
+  const id: string = req.body.id;
 
-  const post = await Post.findOne({
-    where: { id }
-  });
+  try {
+    const post: Model<any, any> | null = await Post.findOne({
+      where: { id }
+    });
 
-  if (!post) {
-    return res.status(404).json({ error: "Post não encontrado!" });
-  };
+    if (post === null) {
+      return res.status(404).json({ error: "Post não encontrado!" });
+    };
 
-  return res.status(200).json({ post });
+    return res.status(200).json({ post });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  }
 };
 
 export {

@@ -43,7 +43,7 @@ const handleNewUser = async (req: Request, res: Response): Promise<Response<any,
     });
 
     return res.status(201).json({ newUser });
-  } catch (err) {
+  } catch (err: unknown) {
     return res.status(500).json({ err });
   };
 };
@@ -88,7 +88,7 @@ const handleUserLogin = async (req: Request, res: Response): Promise<Response<an
     return res.status(200).json({
       message: "Login realizado com sucesso!"
     });
-  } catch (err) {
+  } catch (err: unknown) {
     return res.status(500).json({ err });
   }
 };
@@ -115,14 +115,14 @@ const handleEditUser = async (req: IReq, res: Response): Promise<Response<any, R
       }
     );
 
-    if (editedUser[0] < 0) {
+    if (editedUser[0] === 0) {
       return res
         .status(500)
         .json({ error: "Falha ao atualizar usuario!" });
     };
 
     return res.status(204).send();
-  } catch (err) {
+  } catch (err: unknown) {
     return res.status(500).json({ err });
   };
 };
@@ -145,7 +145,7 @@ const handleDeleteUser = async (req: IReq, res: Response): Promise<Response<any,
     });
 
     return res.status(204).send();
-  } catch (err) {
+  } catch (err: unknown) {
     return res.status(500).json({ err });
   };
 };
@@ -157,7 +157,7 @@ const handleAllUsers = async (req: Request, res: Response) => {
     });
 
     return res.status(200).json({ users });
-  } catch (err) {
+  } catch (err: unknown) {
     return res.status(500).json({ err });
   };
 };
@@ -180,7 +180,7 @@ const handleOneUser = async (req: Request, res: Response): Promise<Response<any,
     };
 
     return res.status(200).json({ isUserRegistered });
-  } catch (err) {
+  } catch (err: unknown) {
     return res.status(500).json({ err });
   };
 };

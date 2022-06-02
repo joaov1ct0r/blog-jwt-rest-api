@@ -9,19 +9,23 @@ import IUser from "../types/userInterface";
 export default async function (req: IReq, res: Response, next: NextFunction) {
   const id: string | undefined = req.userId;
 
-  const isUserRegistered: IUser | null = await User.findOne({
-    where: { id }
-  });
+  try {
+    const isUserRegistered: IUser | null = await User.findOne({
+      where: { id }
+    });
 
-  if (isUserRegistered === null) {
-    return res.status(404).json({ error: "Usuario não encontrado!" });
-  }
+    if (isUserRegistered === null) {
+      return res.status(404).json({ error: "Usuario não encontrado!" });
+    }
 
-  const isUserAdmin: boolean = isUserRegistered.admin === true;
+    const isUserAdmin: boolean = isUserRegistered.admin === true;
 
-  if (isUserAdmin === false) {
-    return res.status(401).json({ error: "Não autorizado!" });
-  }
+    if (isUserAdmin === false) {
+      return res.status(401).json({ error: "Não autorizado!" });
+    }
 
-  next();
+    next();
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 }

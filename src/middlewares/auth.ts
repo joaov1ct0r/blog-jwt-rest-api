@@ -7,7 +7,7 @@ import { Response, NextFunction } from "express";
 import IReq from "../types/requestInterface";
 
 export default function (req: IReq, res: Response, next: NextFunction) {
-  const token: string = req.headers.authorization!.split(" ")[1];
+  const token: string = req.cookies.authorization.split(" ")[1];
 
   if (token.length === 0) return res.status(400).json({ error: "Token não encontrado!" });
 

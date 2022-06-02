@@ -83,7 +83,7 @@ const handleUserLogin = async (req: Request, res: Response): Promise<Response<an
       { expiresIn: 300 }
     );
 
-    res.header("Authorization", `Bearer ${token}`);
+    res.cookie("authorization", `Bearer ${token}`, { httpOnly: true });
 
     return res.status(200).json({
       message: "Login realizado com sucesso!"

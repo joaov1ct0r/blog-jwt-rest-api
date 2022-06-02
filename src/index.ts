@@ -4,6 +4,8 @@ import cors from "cors";
 
 import express from "express";
 
+import cookieParser from "cookie-parser";
+
 import postRouter from "./routes/postRoutes";
 
 import userRouter from "./routes/userRoutes";

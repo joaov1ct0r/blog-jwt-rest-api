@@ -11,13 +11,17 @@ export default function (req: IReq, res: Response, next: NextFunction) {
 
   if (token.length === 0) return res.status(400).json({ error: "Token não encontrado!" });
 
-  const verifiedToken: IJwt = jwt.verify(token, process.env.JWT_TOKEN_SECRET as string) as IJwt;
+  try {
+    const verifiedToken: IJwt = jwt.verify(token, process.env.JWT_TOKEN_SECRET as string) as IJwt;
 
-  if (!verifiedToken) {
-    return res.status(401).json({ error: "Falha na autenticação!" });
-  }
+    if (!verifiedToken) {
+      return res.status(401).json({ error: "Falha na autenticação!" });
+    }
 
-  req.userId = verifiedToken.id;
+    req.userId = verifiedToken.id;
 
-  next();
+    next();
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 }

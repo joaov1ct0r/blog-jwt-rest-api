@@ -1,28 +1,21 @@
 import express from "express";
 
-import {
-  handleNewUser,
-  handleUserLogin,
-  handleEditUser,
-  handleDeleteUser,
-  handleAllUsers,
-  handleOneUser
-} from "../controllers/userController";
+import userController from "../controllers/userController";
 
 import auth from "../middlewares/auth";
 
 const userRouter: express.Router = express.Router();
 
-userRouter.post("/register", handleNewUser);
+userRouter.post("/register", userController.handleNewUser);
 
-userRouter.post("/login", handleUserLogin);
+userRouter.post("/login", userController.handleUserLogin);
 
-userRouter.put("/edit", auth, handleEditUser);
+userRouter.put("/edit", auth, userController.handleEditUser);
 
-userRouter.delete("/delete", auth, handleDeleteUser);
+userRouter.delete("/delete", auth, userController.handleDeleteUser);
 
-userRouter.get("/users", auth, handleAllUsers);
+userRouter.get("/users", auth, userController.handleAllUsers);
 
-userRouter.get("/user", auth, handleOneUser);
+userRouter.get("/user", auth, userController.handleOneUser);
 
 export default userRouter;

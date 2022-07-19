@@ -79,6 +79,7 @@ class UserController {
       const token: string = jwt.sign(
         {
           id: isUserRegistered.id,
+          admin: isUserRegistered.admin,
         },
         process.env.JWT_TOKEN_SECRET as string,
         { expiresIn: 300 }

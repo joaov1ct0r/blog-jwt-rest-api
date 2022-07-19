@@ -172,6 +172,16 @@ class UserController {
       return res.status(500).json({ err });
     }
   }
+
+  async handleAllUsers(req: Request, res: Response): Promise<Response> {
+    try {
+      const users: IUser[] = await User.findAll({});
+
+      return res.status(200).json({ users });
+    } catch (err: unknown) {
+      return res.status(500).json({ err });
+    }
+  }
 }
 
 export default new UserController();

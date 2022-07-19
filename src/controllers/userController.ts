@@ -19,7 +19,7 @@ import IReq from "../types/requestInterface";
 
 import IUser from "../types/userInterface";
 
-class userController {
+class UserController {
   async handleNewUser(
     req: Request,
     res: Response
@@ -240,3 +240,5 @@ export {
   handleAllUsers,
   handleOneUser,
 };
+
+export default new UserController();

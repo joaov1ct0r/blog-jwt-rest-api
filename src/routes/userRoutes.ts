@@ -6,16 +6,18 @@ import auth from "../middlewares/auth";
 
 const userRouter: express.Router = express.Router();
 
-userRouter.post("/register", UserController.handleNewUser);
+const userController: UserController = new UserController();
 
-userRouter.post("/login", UserController.handleUserLogin);
+userRouter.post("/register", userController.handleNewUser);
 
-userRouter.put("/edit", auth, UserController.handleEditUser);
+userRouter.post("/login", userController.handleUserLogin);
 
-userRouter.delete("/delete", auth, UserController.handleDeleteUser);
+userRouter.put("/edit", auth, userController.handleEditUser);
 
-userRouter.get("/users", auth, UserController.handleAllUsers);
+userRouter.delete("/delete", auth, userController.handleDeleteUser);
 
-userRouter.get("/user", auth, UserController.handleOneUser);
+userRouter.get("/users", auth, userController.handleAllUsers);
+
+userRouter.get("/user", auth, userController.handleOneUser);
 
 export default userRouter;

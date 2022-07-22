@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 import cors from "cors";
 
 import express from "express";
@@ -13,10 +11,10 @@ import userRouter from "./routes/userRoutes";
 import adminRouter from "./routes/adminRoutes";
 
 export default class App {
-  public app: express.Application;
+  public server: express.Application;
 
   constructor() {
-    this.app = express();
+    this.server = express();
     this.middlewares();
     this.userRoutes();
     this.postRoutes();
@@ -24,21 +22,21 @@ export default class App {
   }
 
   private middlewares() {
-    this.app.use(cors());
-    this.app.use(express.json());
-    this.app.use(cookieParser());
-    this.app.use(express.urlencoded({ extended: true }));
+    this.server.use(cors());
+    this.server.use(express.json());
+    this.server.use(cookieParser());
+    this.server.use(express.urlencoded({ extended: true }));
   }
 
   private userRoutes() {
-    this.app.use("/api/user", userRouter);
+    this.server.use("/api/user", userRouter);
   }
 
   private postRoutes() {
-    this.app.use("/api/post", postRouter);
+    this.server.use("/api/post", postRouter);
   }
 
   private adminRoutes() {
-    this.app.use("/api/admin", adminRouter);
+    this.server.use("/api/admin", adminRouter);
   }
 }

@@ -4,9 +4,11 @@ import UserController from "../controllers/userController";
 
 import auth from "../middlewares/auth";
 
+import IUserController from "../types/UserControllerInterface";
+
 const userRouter: express.Router = express.Router();
 
-const userController: UserController = new UserController();
+const userController: IUserController = new UserController();
 
 userRouter.post("/register", userController.handleNewUser);
 

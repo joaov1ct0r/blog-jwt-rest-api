@@ -13,7 +13,7 @@ import adminRouter from "./routes/adminRoutes";
 export default class App {
   public server: express.Application;
 
-  constructor() {
+  public constructor() {
     this.server = express();
     this.middlewares();
     this.userRoutes();
